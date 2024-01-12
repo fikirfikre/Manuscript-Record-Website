@@ -3,6 +3,7 @@ from django.contrib.auth import login,logout,authenticate
 from django.contrib import messages
 from .forms import UserCreationForm, InventorForm
 from .models import Inventor
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 def register(request):
@@ -28,10 +29,13 @@ def loginPage(request):
         else:
             messages.info(request,'Invalid username or password')
     return render(request,'main/login.html',{})
-
+@login_required
+def logoutPage(request):
+    logout(request)
+    return redirect("login")
 def home(request):
     return render(request,'main/home.html')
-
+@login_required
 def setting(request):
     user = request.user.inventor
     form = InventorForm(instance=user)

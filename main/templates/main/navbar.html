@@ -1,0 +1,49 @@
+<nav class="navbar navbar-expand navbar-dark bg-dark">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="{% url "home"%}">Manuscript DB</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+     
+      <div class="collapse navbar-collapse justify-content-end" id="navbarNavAltMarkup">
+        
+        <ul class="navbar-nav">
+            
+          {% if request.user.is_staff %}
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="{%url "home"%}">Dashboard</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="">Customer</a>
+          </li>
+          <li class="nav-item">  <a class="nav-link" href="{%url "product"%}">Proudct</a></li>
+         
+          {% endif %}
+          {% if request.user.is_authenticated %}
+          <li class="nav-item">  <a class="nav-link" href="{%url "settings"%}">Setting</a></li>
+          {% endif %}
+         
+        </ul>
+        
+        {% if request.user.is_authenticated %}
+        <span style="color: white; margin-right:1.5rem">Hello, {{ request.user }}    </span>
+        <span> 
+          <a href="{%url "logout"%}" style="color:rgba(245, 245, 245, 0.447); text-decoration:none;">    Logout</a>
+        </span>
+        {%else%}
+        <span>
+        <a href="{%url "login"%}" style="color:rgba(245, 245, 245, 0.447); text-decoration:none;">    Login</a>
+        </span>
+        {% endif %}
+    
+      </div>
+      
+      
+      
+     
+
+      
+  
+      
+    </div>
+  </nav>
