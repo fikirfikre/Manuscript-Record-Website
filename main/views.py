@@ -1,7 +1,7 @@
 from django.shortcuts import render,redirect
 from django.contrib.auth import login,logout,authenticate
 from django.contrib import messages
-from .forms import UserCreationForm
+from .forms import UserCreationForm, InventorForm
 from .models import Inventor
 
 # Create your views here.
@@ -31,3 +31,14 @@ def loginPage(request):
 
 def home(request):
     return render(request,'main/home.html')
+
+def setting(request):
+    user = request.user.inventor
+    form = InventorForm(instance=user)
+    if (request.method == "POST"):
+        form = InventorForm(request.POST,instance=user)
+        if form.is_valid():
+            form.save()
+            messages.info(request,"Your Profile is Updated")
+    context={'form':form}
+    return render(request,'main/settings.html',context)
