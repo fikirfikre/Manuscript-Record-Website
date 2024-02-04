@@ -11,5 +11,6 @@ urlpatterns = [
     path('generform/',views.GenerFormPage,name='generform'),
     path('reporitoryform/',views.RepositoryFormPage,name="repositoryform"),
     path('repositoryLocationform/',views.RepositoryLocationFormPage,name="repositoryLocationform"),
-    path('repositoryOwnerform/',views.RepositoryOwnerFormpage,name="repositoryownerform")
+    path('repositoryOwnerform/',views.RepositoryOwnerFormpage,name="repositoryownerform"),
+    path('detail/<int:pk>',views.detail,name="detail")
 ]

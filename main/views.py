@@ -97,3 +97,12 @@ def RepositoryOwnerFormpage(request):
     form = RepositoryOwnerForm()
     context = {'form':form}
     return render(request,"main/repositoryOwner.html",context)
+
+def home(request):
+    manuscripts = Manuscript.objects.all()
+    context = {'manuscripts':manuscripts}
+    return render(request,"main/home.html",context)
+
+def detail(request,pk):
+    print(pk)
+    return render (request,'main/detail.html')
