@@ -1,9 +1,13 @@
 {% extends "main/navbartwo.html" %}
+{%load widget_tweaks%}
 {% block main %}
-<div><h1>Genere</h1>
+<div><h1>Create Gener</h1>
     <form method="post">
         {% csrf_token %}
-        {{form.as_p}}
+        {% for field in form %}
+        {{field.label_tag}}
+        {{field|add_class:"form-control"}}
+        {% endfor %}
         <input type="submit" value="Submit" class="btn bg-dark" style="color:white" />
     </form>
 </div>

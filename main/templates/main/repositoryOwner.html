@@ -1,9 +1,12 @@
 {% extends "main/navbartwo.html" %}
-
+{%load widget_tweaks%}
 {% block main %}
-<div><h1>owner</h1>
-    <form method='post'>
-        {{form.as_p}}
-        <input type="submit" value="Submit" class="btn bg-dark" style="color:white" />
+<div><h1>Create Reposiotry Owner</h1>
+    <form method='post' class="form">
+        {% for field in form %}
+        {{field.label_tag}}
+        {{field|add_class:"form-control"}}
+        {% endfor %}
+        <input type="submit" value="Submit" class="btn bg-dark mt-3" style="color:white" />
     </form></div>
 {% endblock main %}

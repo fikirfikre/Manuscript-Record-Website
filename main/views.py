@@ -54,7 +54,6 @@ def manuscriptFormPage(request):
         if form.is_valid():
             mansucript=form.save(commit=False)
             mansucript.inventor=inventor
-            print(mansucript)
             mansucript.save()
             return redirect("home")
     else:
