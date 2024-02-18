@@ -1,4 +1,62 @@
 {% extends "main/base.html" %}
+{% load static %}
+{% block link %}<link rel="stylesheet" href="{% static "style.css" %}">{% endblock link %}
+{% block title %} detail {% endblock title %}
+{% block nav %}{% include "main/navbar.html" %}{% endblock nav %}
 {% block content %}
-<h1>detail</h1>
+<div class="main-section">
+    <h2> {{manuscript.mansucript_name}} </h2>
+    <hr/>
+    <div class="detail">
+        <div class="left-detail">
+            <p>shelf mark : <span>{{manuscript.shelf_mark}}</span></p>
+            <p>resp_statement : <span>{{manuscript.resp_statement}}</span></p>
+            <p>inventory_date : <span>{{manuscript.inventory_date}}</span></p>
+            <p>measurement : <span>{{manuscript.measurement}}</span></p>
+            <p>follos number : <span>{{manuscript.follos_number}}</span></p>
+            <p>binding : <span>{{manuscript.binding}}</span></p>
+            <p>main content : <span>{{manuscript.main_content}}</span></p>
+            <p>date : <span>{{manuscript.dating}}</span></p>
+            <p>other provenance : <span>{{manuscript.other_provenance}}</span></p>
+            <p>scripe : <span>{{manuscript.scripe}}</span></p>
+            <p>no of column : <span>{{manuscript.no_of_cols}}</span></p>
+            
+        </div>
+        <div class="right-detail">
+            <p>notes cur use : <span>{{manuscript.notes_cur_use}}</span></p>
+            <p>no of lines : <span>{{manuscript.no_of_lines}}</span></p>
+            <p>decoration : <span>{{manuscript.decoration}}</span></p>
+            <p>colophones : <span>{{manuscript.colophones}}</span></p>
+            <p>additional notes : <span>{{manuscript.additional_notes}}</span></p>
+            <p>repository : <span>{{manuscript.repository}}</span></p>
+            <p>lanugage : <span>{{manuscript.language}}</span></p>
+            <p>gener : <span>{{manuscript.genere}}</span></p>
+            <p>inventor : <span>{{manuscript.inventor}}</span></p>
+            <p>reposiotry owner : <span>{{manuscript.repositoryOwner}}</span></p>
+            <p>repository location : <span>{{manuscript.repositoryLocation}}</span></p>
+            
+        </div>
+        
+    </div>
+    {% if manuscript.inventor == inventor %}
+    <div class="buttons">
+
+        <button class="btn bg-dark btn-dark" > <a href ={% url "edit" manuscript.id %}> Edit  </a></button>
+        <button class="btn bg-dark btn-dark"  > <a href ={% url "delete" manuscript.id  %}> Delete  </a></button>
+
+   
+    </div>
+    {% endif %}
+
+
+    
+   
+    
+</div>
+
+
+
+
+
+
 {% endblock content %}

@@ -1,0 +1,24 @@
+{% extends "main/navbartwo.html" %}
+{%load widget_tweaks%}
+{% block title %}Edit{% endblock title %}
+{% block nav %}{% include "main/navbar.html" %}{% endblock nav %}
+{% block main %}
+
+<div 
+><h1>Edit {{title}}</h1>
+<form method="post" class="form">
+    {% csrf_token %}
+    {% for field in form%}
+    <div class="form-group">
+        {{field.label_tag}}
+        
+        {{field|add_class:"form-control"}}
+         
+       
+    </div>
+   {%endfor%}
+    <input type="submit" value="Edit" class="btn bg-dark mt-3" style="color:white" />
+</form>
+  
+</div>
+{% endblock main %}

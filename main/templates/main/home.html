@@ -6,29 +6,46 @@
 {% block content %}
 
 <div class="m-3">
-    <h2>List of Manuscript</h2>
-    <hr>     
+    <hr>    
+    {% if not manuscripts%}
+    <div>
+    <p> There is no Manuscripts </p>
+    <div>
+    {% else %}
     <table class="table">
       <thead>
         <tr>
+          <th>ID</th>
           <th>Manuscript</th>
           <th>Gener</th>
           <th>Language</th>
+          <th></th>
         </tr>
       </thead>
       <tbody>
-        {% for manuscript in  manuscripts %}
+        {% for obj in  page_obj.object_list %}
         <tr>
-            <td>{{manuscript.mansucript_name}}</td>
-            <td>{{manuscript.genere}}</td>
-            <td>{{manuscript.language}}</td>
+          <td>{{ page_obj.start_index|add:forloop.counter0 }}</td>
+            <td>{{obj.mansucript_name}}</td>
+            <td>{{obj.genere}}</td>
+            <td>{{obj.language}}</td>
             <td>
-                <a href ={% url "detail" manuscript.id %}><button class="btn bg-dark btn-dark" > Detail </button></td> </a>
+                <a href ={% url "detail" obj.id %}><button class="btn bg-dark btn-dark" > Detail </button></td> </a>
                 
           </tr>
         {% endfor %}
 
       </tbody>
     </table>
+    {% if page_obj.has_previous %}
+    <a class="btn bg-dark btn-dark" href="?page={{ page_obj.previous_page_number }}">Previous</a>
+{% endif %}
+
+<!-- Next button -->
+{% if page_obj.has_next %}
+    <a class="btn bg-dark btn-dark" href="?page={{ page_obj.next_page_number }}">Next</a>
+{% endif %}
+
+    {% endif %} 
   </div>
 {% endblock content %}

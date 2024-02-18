@@ -23,21 +23,26 @@ class RepositoryOwnerForm(forms.ModelForm):
     class Meta:
         model = RepositoryOwner
         fields = "__all__"
+        exclude = ["inventor"]
 
 class RepositoryLocationForm(forms.ModelForm):
     class Meta:
         model = RepositoryLocation
         fields="__all__"
+        exclude = ["inventor"]
 class RepositoryForm(forms.ModelForm):
     class Meta:
         model = Repository
         fields = "__all__"
+        exclude = ["inventor"]
 class GenerForm(forms.ModelForm):
     class Meta:
         model = Genre
-        fields="__all__" 
-class Language(forms.ModelForm):
+        fields="__all__"
+        exclude = ["inventor"] 
+class LanguageForm(forms.ModelForm):
     class Meta:
         model = Language
         fields="__all__" 
+        exclude = ["inventor"]
               

@@ -1,0 +1,50 @@
+{% extends "main/navbartwo.html" %}
+{% block main %}
+
+<div class="m-3">
+    <hr>    
+    {% if not objects%}
+    <div>
+    <p> There is no {{title}} </p>
+    <div>
+    {% else %}
+    <table class="table">
+      <thead>
+        <tr>
+          <th>{{title}}</th>
+          <th></th>
+          <th></th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for object in  objects %}
+        <tr>
+          {% if title == "Locations" %}
+            <td>{{object.country}}</td>
+          
+            <td>{{object.city}}</td>
+            {% else %}
+            <td>{{object.name}}</td>
+          
+            <td></td>
+            {% endif %}
+
+           
+            <td></td>
+            <td>
+              {% if object.inventor == inventor%}
+                <button class="btn bg-dark btn-dark" > <a href ={% url editUrl object.id%} style="text-decoration: none; color:white;">Edit </a>  </button> 
+              
+                <a href ={% url deleteUrl object.id %}><button class="btn bg-dark btn-secondary" > Delete </button> </a> 
+                {% endif %}
+              </td>
+                
+          </tr>
+        {% endfor %}
+
+      </tbody>
+    </table>
+    {% endif %} 
+  </div>
+{% endblock main %}
