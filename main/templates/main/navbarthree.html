@@ -19,7 +19,7 @@
         flex: 70%;
         overflow-y: scroll;
         padding: 1rem 2rem;
-        {% comment %} border-radius: 10px 0px; {% endcomment %}
+        /* border-radius: 10px 0px; */
     }
 </style>
 <div class="body">
@@ -32,12 +32,15 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
           <ul class="navbar-nav flex-column">
-            <li class="nav-item">  <a class="nav-link" href="{%url "manuscriptform" %}">Manuscript Form</a></li>
-            <li class="nav-item">  <a class="nav-link" href="{%url "generform"%}">Genre Form</a></li>
-            <li class="nav-item">  <a class="nav-link" href="{%url "repositoryownerform"%}"> Owner Form</a></li>
-            <li class="nav-item">  <a class="nav-link" href="{%url "repositoryLocationform"%}">Location Form</a></li>
-            <li class="nav-item">  <a class="nav-link" href="{%url "languageform"%}">Language Form</a></li>
-            <li class="nav-item">  <a class="nav-link" href="{%url "repositoryform"%}">Repository Form</a></li>
+            <li class="nav-item"><a class="nav-link" href="{% url "home" %}">Manuscript</a></li>
+            <li class="nav-item"><a class="nav-link" href="{% url "genres"%}">Genre</a></li>
+            <li class="nav-item"><a class="nav-link" href="{% url "owners"%}">Repository Owner</a></li>
+            <li class="nav-item"><a class="nav-link" href="{% url "locations"%}">Location</a></li>
+            <li class="nav-item"><a class="nav-link" href="{% url "languages"%}">Language</a></li>
+            <li class="nav-item"><a class="nav-link" href="{% url "repo"%}">Repository</a></li>
+            {% if request.user.role == "ADMIN"%}
+            <li class="nav-item"><a class="nav-link" href="{% url "users"%}">Users</a></li>
+            {% endif %}
           
         </ul>
         </div>
@@ -45,10 +48,8 @@
     </nav>
   </div>
     <div class="content">
-      <hr>
         {% block main %}
         {% endblock main %}
     </div>
 </div>
 {% endblock content %}
-

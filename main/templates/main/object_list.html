@@ -1,4 +1,4 @@
-{% extends "main/navbartwo.html" %}
+{% extends "main/navbarthree.html" %}
 {% block main %}
 
 <div class="m-3">
@@ -11,20 +11,30 @@
     <table class="table">
       <thead>
         <tr>
+          <th>Id</th>
+          {% if title == "Locations" %}
+          <th>Country</th>
+          <th>City</th>
+          {% else %}
           <th>{{title}}</th>
+          {% endif %}
           <th></th>
           <th></th>
           <th></th>
+
         </tr>
       </thead>
       <tbody>
         {% for object in  objects %}
         <tr>
+          <td>{{forloop.counter }}</td>
           {% if title == "Locations" %}
+
             <td>{{object.country}}</td>
           
             <td>{{object.city}}</td>
             {% else %}
+
             <td>{{object.name}}</td>
           
             <td></td>
@@ -33,7 +43,7 @@
            
             <td></td>
             <td>
-              {% if object.inventor == inventor%}
+              {% if object.inventor == request.user or request.user.role == "ADMIN"%}
                 <button class="btn bg-dark btn-dark" > <a href ={% url editUrl object.id%} style="text-decoration: none; color:white;">Edit </a>  </button> 
               
                 <a href ={% url deleteUrl object.id %}><button class="btn bg-dark btn-secondary" > Delete </button> </a> 

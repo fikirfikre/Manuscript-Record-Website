@@ -38,7 +38,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'main',
-    'widget_tweaks'
+    'widget_tweaks',
+    "django_filters"
+
 ]
 
 MIDDLEWARE = [
@@ -76,10 +78,14 @@ WSGI_APPLICATION = 'manuscript.wsgi.application'
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
+'default': {
+'ENGINE': 'django.db.backends.mysql',
+'NAME': 'mydb',
+'USER': 'root',
+'PASSWORD': 'root',
+'HOST':'localhost',
+'PORT':'3306',
+}
 }
 
 
@@ -123,3 +129,5 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+AUTH_USER_MODEL = 'main.User'
+

@@ -1,14 +1,13 @@
-{% extends "main/base.html" %}
+{% extends "main/navbarthree.html" %}
 {% load static %}
 {% block link %}<link rel="stylesheet" href="{% static "style.css" %}">{% endblock link %}
 {% block title %} detail {% endblock title %}
-{% block nav %}{% include "main/navbar.html" %}{% endblock nav %}
-{% block content %}
-<div class="main-section">
+{% comment %} {% block nav %}{% include "main/navbar.html" %}{% endblock nav %} {% endcomment %}
+{% block main %}
+<div class="card p-3">
     <h2> {{manuscript.mansucript_name}} </h2>
     <hr/>
-    <div class="detail">
-        <div class="left-detail">
+    
             <p>shelf mark : <span>{{manuscript.shelf_mark}}</span></p>
             <p>resp_statement : <span>{{manuscript.resp_statement}}</span></p>
             <p>inventory_date : <span>{{manuscript.inventory_date}}</span></p>
@@ -20,9 +19,6 @@
             <p>other provenance : <span>{{manuscript.other_provenance}}</span></p>
             <p>scripe : <span>{{manuscript.scripe}}</span></p>
             <p>no of column : <span>{{manuscript.no_of_cols}}</span></p>
-            
-        </div>
-        <div class="right-detail">
             <p>notes cur use : <span>{{manuscript.notes_cur_use}}</span></p>
             <p>no of lines : <span>{{manuscript.no_of_lines}}</span></p>
             <p>decoration : <span>{{manuscript.decoration}}</span></p>
@@ -35,10 +31,8 @@
             <p>reposiotry owner : <span>{{manuscript.repositoryOwner}}</span></p>
             <p>repository location : <span>{{manuscript.repositoryLocation}}</span></p>
             
-        </div>
-        
-    </div>
-    {% if manuscript.inventor == inventor %}
+     
+    {% if manuscript.inventor == request.user or request.user.role == 'ADMIN'%}
     <div class="buttons">
 
         <button class="btn bg-dark btn-dark" > <a href ={% url "edit" manuscript.id %}> Edit  </a></button>
@@ -59,4 +53,4 @@
 
 
 
-{% endblock content %}
+{% endblock main %}

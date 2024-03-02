@@ -1,0 +1,21 @@
+{% extends "main/navbartwo.html" %}
+{% block main %}
+ <ul>
+    <li>
+        user name: {{user.name}}
+    </li>
+    <li>
+        email: {{user.email}}
+    </li>
+    <li>
+        <form method="POST">
+            {% csrf_token %}
+            {{form.as_p}}
+            <input type="submit" value="Edit"/>
+        </form>
+       
+    </li>
+ </ul>
+
+
+{% endblock main %}

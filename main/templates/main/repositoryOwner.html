@@ -2,10 +2,9 @@
 {%load widget_tweaks%}
 {% block main %}
 <div>
-    <div class="d-flex justify-content-between">
-        <h1>Create Repository owner</h1>
-        <button class="btn bg-dark btn-dark"  > <a href ={% url "owners" %} style="text-decoration: none; color:white;">List of Owners  </a></button>
-         </div>
+
+        <h1>Register Repository owner</h1>
+        <hr>
     <form method='post' class="form">
         {% csrf_token %}
         {% for field in form %}

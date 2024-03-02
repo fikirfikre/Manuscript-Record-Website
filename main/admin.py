@@ -8,4 +8,6 @@ admin.site.register(RepositoryOwner)
 admin.site.register(RepositoryLocation)
 admin.site.register(Genre)
 admin.site.register(Language)
-admin.site.register(Inventor)
+admin.site.register(User)
+admin.site.register(Reader)
+

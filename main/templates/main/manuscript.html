@@ -1,22 +1,37 @@
 {% extends "main/navbartwo.html" %}
 {%load widget_tweaks%}
 {% block main %}
-<div 
-><h1>Create Manuscript</h1>
-<form method="post" class="form">
+
+<div class="container"
+><h1 bg-dark >Register Manuscript</h1>
+<hr>
+<div class="card card-body">
+
+<form method="post" class="form-row">
     {% csrf_token %}
     {% for field in form%}
-    <div class="form-group">
-        {{field.label_tag}}
-        
-        {{field|add_class:"form-control"}}
-         
-       
+    <div class="form-group row">
+      <span class="col">
+        {{ field.label_tag }}
+        {% if not field.field.required %}
+          <span class="text-muted">(optional)</span>
+        {% endif %}
+      </span>
+    
+      {% if field.name == "additional_notes" or field.name == "notes_cur_use" %}
+        <div class="col mb-3">
+          <input type="text" name="{{ field.name }}" class="form-control" />
+        </div>
+      {% else %}
+        <span class="col mb-3">
+          {{ field | add_class:"form-control" }}
+        </span>
+      {% endif %}
     </div>
    {%endfor%}
     <input type="submit" value="Submit" class="btn bg-dark mt-3" style="color:white" />
 </form>
-  
+</div>
 </div>
 {% endblock main %}
 
