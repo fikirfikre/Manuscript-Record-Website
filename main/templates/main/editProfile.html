@@ -1,0 +1,57 @@
+{% extends "main/navbar_setting.html" %}
+{%load widget_tweaks%}
+{% block title %}Settings{% endblock title %}
+{% block main %}
+<form method="POST" action="">
+    {% csrf_token %}
+    <div class="container ml-5 align-self-center">
+      <ul class = "card-body list-group p-5 pt-0 m-3 justify-content-center  align-self-center">
+         <div class="card p-5" style="width:28rem">         
+             <form method="POST" >
+                 {% csrf_token %}
+              
+             <div class="row g-3 align-items-center mb-4 justify-content-center ">
+                 <div class="col-auto">
+                   <strong  class="col-form-label">User Name</strong>
+                 </div>
+                
+                 <div class="col-auto">
+                   {{form.username|add_class:"form-control"}}
+                 </div>
+            
+                 <div class="col-auto">
+                  <strong class="col-form-label">First Name</strong>
+
+                 </div>
+                 <div class="col-auto">
+                  {{form.first_name|add_class:"form-control"}}
+                 </div>
+                 <div class="col-auto">
+                  <strong class="col-form-label">
+                    Last Name
+                  </strong>
+                 </div>
+                 <div class="col-auto">
+                  {{form.last_name|add_class:"form-control"}}
+                 </div>
+                 <div class="col-auto">
+                  <strong class="col-form-label ">   Email </strong>
+                 </div>
+                 <div class="col-auto ">
+                  {{form.email|add_class:"form-control"}}
+                 </div>
+                 
+     
+               </div>
+               
+            
+                 <input type="submit" value="Edit" class="btn  btn btn-outline-primary m-2 "/>
+             </form>
+            
+        
+      </ul>
+      <div>
+     </div>
+     
+</form>
+{% endblock main %}

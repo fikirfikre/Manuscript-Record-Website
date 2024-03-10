@@ -17,7 +17,7 @@
     .content {
         background-color: white;
         flex: 70%;
-        overflow-y: auto;
+        overflow-y: scroll;
         padding: 1rem 2rem;
         /* border-radius: 10px 0px; */
     }
@@ -32,23 +32,14 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
           <ul class="navbar-nav flex-column">
-            <li class="nav-item"><a class="nav-link" href="{% url "home" %}">Manuscript</a></li>
-            <li class="nav-item"><a class="nav-link" href="{% url "genres"%}">Genre</a></li>
-            <li class="nav-item"><a class="nav-link" href="{% url "owners"%}">Repository Owner</a></li>
-            <li class="nav-item"><a class="nav-link" href="{% url "locations"%}">Location</a></li>
-            <li class="nav-item"><a class="nav-link" href="{% url "languages"%}">Language</a></li>
-            <li class="nav-item"><a class="nav-link" href="{% url "repo"%}">Repository</a></li>
-            {% if request.user.role == "ADMIN"%}
-            <li class="nav-item"><a class="nav-link" href="{% url "users"%}">Users</a></li>
-            <li class="nav-item"><a class="nav-link" href="{% url "statistics"%}">Statistics</a></li>
-            {% endif %}
-          
+            <li class="nav-item"><a class="nav-link" href="{% url "editprofile" %}">Edit Profile</a></li>
+            <li class="nav-item"><a class="nav-link" href="{% url "logout"%}">Logout</a></li>
         </ul>
         </div>
       </div>
     </nav>
   </div>
-    <div class="content justify-content-center  ">
+    <div class="content">
         {% block main %}
         {% endblock main %}
     </div>

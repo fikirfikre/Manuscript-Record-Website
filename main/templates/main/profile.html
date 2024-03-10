@@ -1,4 +1,4 @@
-{% extends "main/navbarthree.html" %}
+{% extends "main/navbar_setting.html" %}
 {%load widget_tweaks%}
 {% block main %}
 <div class="container ml-5">
@@ -16,24 +16,11 @@
     <li class="list-group-item  m-2">
         <strong>Last name:</strong> {{user.last_name}}
     </li>
+    <li class="list-group-item  m-2">
+        <strong>Role:</strong> {{user.role}}
+    </li>
     
-        <form method="POST" >
-            {% csrf_token %}
-            <li class="list-group-item  m-2">
-        <div class="row g-3 align-items-center">
-            <div class="col-auto">
-              <strong  class="col-form-label">Role</strong>
-            </div>
-            <div class="col-auto">
-              {{form.role|add_class:"form-select"}}
-            </div>
 
-          </div>
-          
-        </li>
-            <input type="submit" value="Edit" class="btn  btn btn-outline-primary m-2 "/>
-        </form>
-       
    
  </ul>
  <div>

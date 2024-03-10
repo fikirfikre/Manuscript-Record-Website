@@ -1,0 +1,93 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- <link href="https://fonts.googleapis.com/css?family=Lato:100,300,400,700,900" rel="stylesheet"> -->
+    <link rel="stylesheet" href={% static "sty.css" %}>
+    {% comment %} <link rel="stylesheet" href="{% static "bootstrap.min.css" %}"> {% endcomment %}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <title>manuscript</title>
+</head>
+<body>
+    <header class="header">
+      <div class="header-main">
+        <div class="logo-box">
+            <img src={% static "logo.png" %} alt="log" class="logo">
+        </div>
+        <div class="text-box">
+          <li class="navigation-item">
+            <div class="dropdown">
+              <button class="dropbtn">
+                <span> {{request.user.first_name}} {{request.user.last_name}}  </span> <i class="fa fa-caret-down btn-down"></i>
+              </button>
+              <div class="dropdown-content">
+                <a href={% url "profile" %}>Edit Profile</a>
+                <a href={% url "logout" %}>Logout</a>
+              </div>
+            </div>
+            
+          </li>
+        </div>
+
+        
+        
+      </div>
+   
+      <div class="header-sub">
+        <nav class="nav">
+            <li class="navigation-item dropbtn"><div><a href={% url "view" %}>Home</a></div></li>
+            {% if request.user.role == "INVENTOR" or request.user.role == "ADMIN" %}
+            <li class="navigation-item">
+              <div class="dropdown">
+                <button class="dropbtn">
+                 <span> Register</span> <i class="fa fa-caret-down"></i>
+                </button>
+                <div class="dropdown-content">
+                  <a href={% url "manuscriptform" %}>Manuscript</a>
+                  <a href={% url "languageform" %}>Language</a>
+                  <a href={% url "repositoryownerform" %}>Repository</a>
+                  <a href={% url "generform" %}>Genre</a>
+                  <a href={% url "repositoryLocationform" %}>Location</a>
+                  <a href={% url "repositoryownerform" %}>Owner</a>
+                </div>
+              </div>
+            </li>
+            {% endif %}
+            <li class="navigation-item">
+              <div class="dropdown">
+                <button class="dropbtn">
+                  <span> View </span><i class="fa fa-caret-down btn-down"></i> 
+                </button>
+                <div class="dropdown-content">
+                  <a href="{% url "home" %}">Manuscript</a>
+                  <a href="{% url "languages" %}">Language</a>
+                  <a href="{% url "repo" %}">Repository</a>
+                  <a href="{% url "genres" %}">Genre</a>
+                  <a href="{% url "locations" %}">Location</a>
+                  <a href="{% url "owners" %}">Owner</a>
+                </div>
+              </div>
+            </li>
+            {% if request.user.role == "ADMIN" %}
+            <li class="navigation-item dropbtn"><div><a href={% url "users" %}>Users</a></div></li>
+            <li class="navigation-item dropbtn"><div><a href={% url "statistics" %}>Statistics</a></div></li>
+            {% endif %}
+           
+        </nav>
+      </div>
+    </header>
+    <main class="main">
+        {% block main %}
+        {% endblock main %}
+
+    </main>
+
+    <footer>
+      footer
+    </footer>
+</body>
+
+</html>

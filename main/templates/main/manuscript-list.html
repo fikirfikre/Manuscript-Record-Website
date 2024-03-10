@@ -1,0 +1,77 @@
+{% extends "main/index.html" %}
+{%load widget_tweaks%}
+{% block main %}
+<div class="list-main-box">
+    <div class="search-box form-box-left">
+        <form action="" method="post">
+            {% csrf_token %}
+        <div class="input-bar">
+            {% for field in filter.form.visible_fields|slice:":5" %}
+            <label>{{field.label_tag}}</label>
+            {{field|add_class:"form-input search-bar"}}
+            {% endfor %}
+        </div>
+        <div class="input-bar">
+            
+            <label class="input-label" for="defaultCheck2">
+                All Manuscripts
+            </label>
+            <input class="form-check-input" type="checkbox" id="defaultCheck2" name="all_manuscripts"
+            >
+                      
+                       {% for field in filter.form.visible_fields|slice:"5:" %}
+            <label>{{field.label_tag}}</label>
+            {{field|add_class:"form-input"}}
+            {% endfor %}
+            <button  type="submit" class="btn btn-search btn-submit">
+                Search
+              </button>
+
+            
+          
+        </div>
+    </form>
+    </div>
+
+    {% if manuscripts %}
+    <div class="box-list">
+        <form action="" method="post">
+            <div class="table-box">
+                <div class="form-box-left">
+                <table>
+                    <thead>
+                        <td>id</td>
+                        <td>title</td>
+                        <td>Genre</td>
+                        <td>language</td>
+                        <td></td>
+
+                    </thead>
+                    <tbody>
+                        {% for obj in manuscripts %}
+                        <tr>
+                            <td>{{forloop.counter}}</td>
+                            <td>{{obj.mansucript_name}}</td>
+                            <td>{{obj.genere}}</td>
+                            <td>{{obj.language}}</td>
+                            <td>                <a href ={% url "detail" obj.id %} class="btn-detail"> Detail </a></td>
+                        </tr>
+                        {% endfor %}
+                    
+                      
+                    </tbody>
+                </table>
+
+                    
+
+                     
+                </div>
+            </div>
+            
+        </form>
+    </div>
+    {% else %}
+    <div class="none"></div>
+    {% endif %}
+    </div>
+{% endblock main %}

@@ -1,0 +1,79 @@
+{% extends "main/index.html" %}
+{% block main %}
+ <div class="box-list">
+  <div class="main-title">
+    <h3>Users</h3>
+  </div>
+  <div class="table-box">
+    <div class="form-box-left">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Id</th>
+            <th> user name </th>
+           <th>email</th>
+           <th>role</th>
+           <th></th>
+         
+         
+      
+      
+          </tr>
+        </thead>
+        <tbody>
+          {% for object in  page_obj %}
+          <tr>
+            <td>{{ page_obj.start_index|add:forloop.counter0 }}</td>
+           
+      
+              <td>{{object.username}}</td>
+            
+              <td>{{object.email}}</td>
+        
+              <td>{{object.role}}</td>
+            
+             
+          
+      
+             
+              
+              <td>
+                {% if  request.user.role == "ADMIN"%}
+                   <a href ={% url "edituser" object.id%} style="" class="btn-detail" style="margin-left:10px">Edit </a> 
+            
+                  {% endif %}
+                </td>
+                  
+            </tr>
+          {% endfor %}
+      
+        </tbody>
+      </table>
+      <div>
+      {% if paginator.num_pages > 1 %}
+      <ul class="pagination">
+        {% if page_obj.has_previous %}
+          <li >
+            <a class="btn-detail" href="?page={{ page_obj.previous_page_number }}" class="page-link">Previous</a>
+          </li>
+        {% endif %}
+    
+        {% if page_obj.has_next %}
+          <li >
+            <a class="btn-detail" href="?page={{ page_obj.next_page_number }}" class="page-link">Next</a>
+          </li>
+        {% endif %}
+      </ul>
+    {% endif %}
+    </div>
+    </div>
+  </div>
+
+  
+ 
+
+ </div>
+{% endblock main %}
+
+{% comment %} {% endcomment %}
+

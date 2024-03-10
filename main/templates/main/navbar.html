@@ -13,13 +13,7 @@
           {% comment %} <li class="nav-item"> 
             <a class="nav-link" href="{%url "home"%}" > Home</a>
           </li> {% endcomment %}
-          {% if request.user.role == "ADMIN" %}
-          <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="{%url "home"%}">Dashboard</a>
-          </li>
-        
-         
-          {% endif %}
+  
           {% if request.user.role == "INVENTOR" or request.user.role == "ADMIN"  %}
           <li class="nav-item">  <a class="nav-link" href="{%url "entry"%}">Entry</a></li>
           {% endif %}
@@ -28,7 +22,7 @@
             <a class="nav-link" href="{%url "view"%}" > View</a>
           </li>
           <li class="nav-item"> 
-            <a class="nav-link" href="{%url "logout"%}" > Logout</a>
+            <a class="nav-link" href="{%url "settings"%}" > profile</a>
           </li>
           <li class="nav-item nav-link" >Hello, {{ request.user }}    </li>
          

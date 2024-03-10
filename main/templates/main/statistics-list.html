@@ -1,0 +1,66 @@
+{% extends "main/index.html" %}
+{% block main %}
+ <div class="box-list">
+  <div class="main-title">
+    <h3>Statistics</h3>
+  </div>
+  <div class="table-box">
+    <div class="form-box-left">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Title</th>
+           
+           <th>statistics</th>
+           <th></th>
+         
+         
+      
+      
+          </tr>
+        </thead>
+        <tbody>
+       
+            <tr >
+                <td >Manuscripts</td>
+                <td>{{manuscripts}}</td>
+                <td></td>
+              </tr>
+              <tr>
+                <td >Locations</td>
+                <td> {{locations}}</td>
+                <td></td>
+              </tr>
+              <tr>
+                <td >Genres</td>
+                <td> {{genres}}</td>
+                <td></td>
+              </tr>
+              <tr>
+                <td >Repository owners</td>
+                <td> {{owners}}</td>
+                <td></td>
+              </tr>
+              <tr>
+                <td >Repositories</td>
+                <td >{{repository}}</td>
+                <td></td>
+              </tr>
+              <tr>
+                <td >Languages</td>
+                <td >{{languages}}</td>
+                <td></td>
+              </tr>
+        
+      
+        </tbody>
+      </table>
+    </div>
+  </div>
+ 
+
+ </div>
+{% endblock main %}
+
+{% comment %} {% endcomment %}
+

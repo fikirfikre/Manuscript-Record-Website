@@ -1,0 +1,40 @@
+{% extends "main/index.html" %}
+{% load widget_tweaks %}
+{% block main %}
+<div class="manuscript">
+    <div class="main-title">
+        <h3> Edit Manuscript</h3>
+     </div>
+<div class="manuscript-bg">
+
+    <form action="" method="post">
+        {% csrf_token %}
+        <div class="form-box">
+            <div class="form-box-left">
+                {% for field in  form.visible_fields|slice:":14" %}
+                <div class="input-box">
+                    <label for="" class="form-label">{{field.label_tag}}</label>
+                    {{field | add_class:"form-input"}}
+                </div>
+                {% endfor %}
+
+                 
+            </div>
+
+            <div class="form-box-right">
+                {% for field in  form.visible_fields|slice:"14:" %}
+                <div class="input-box">
+                    <label for="" class="form-label">{{field.label_tag}}</label>
+                    {{field | add_class:"form-input"}}
+                </div>
+               
+                {% endfor %}
+                <input type="submit" value="Edit" class="btn-submit"/>
+
+            </div>
+        </div>
+        
+    </form>
+</div>
+</div>
+{% endblock main %}

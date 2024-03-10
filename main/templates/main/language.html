@@ -11,6 +11,8 @@
         {{field.label_tag}}
         {{field|add_class:"form-control"}}
         {% endfor %}
+        <p class="error">   {{form.name.errors}} </p>
+
         <input type="submit" value="Submit" class="btn bg-dark mt-3" style="color:white" />
     </form>
 </div>

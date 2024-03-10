@@ -1,0 +1,45 @@
+{% extends "main/index.html" %}
+{% block main %}
+<div class="detail">
+    <div class="form-box-left">
+        <div class="main-title">
+            <h3> {{manuscript.mansucript_name}}</h3>
+         </div>
+         <div class="detail-list">
+            <ul>
+                <li>shelf mark : <span>{{manuscript.shelf_mark}}</span></li>
+                <li>resp_statement : <span>{{manuscript.resp_statement}}</span></li>
+                <li>inventory_date : <span>{{manuscript.inventory_date}}</span></li>
+                <li>measurement : <span>{{manuscript.measurement}}</span></li>
+                <li>follos number : <span>{{manuscript.follos_number}}</span></li>
+                <li>binding : <span>{{manuscript.binding}}</span></li>
+                <li>main content : <span>{{manuscript.main_content}}</span></li>
+                <li>date : <span>{{manuscript.dating}}</span></li>
+                <li>other provenance : <span>{{manuscript.other_provenance}}</span></li>
+                <li>scripe : <span>{{manuscript.scripe}}</span></li>
+                <li>no of column : <span>{{manuscript.no_of_cols}}</span></li>
+                <li>notes cur use : <span>{{manuscript.notes_cur_use}}</span></li>
+                <li>no of lines : <span>{{manuscript.no_of_lines}}</span></li>
+                <li>decoration : <span>{{manuscript.decoration}}</span></li>
+                <li>colophones : <span>{{manuscript.colophones}}</span></li>
+                <li>additional notes : <span>{{manuscript.additional_notes}}</span></li>
+                <li>repository : <span>{{manuscript.repository}}</span></li>
+                <li>lanugage : <span>{{manuscript.language}}</span></li>
+                <li>gener : <span>{{manuscript.genere}}</span></li>
+                <li>inventor : <span>{{manuscript.inventor}}</span></li>
+                <li>reposiotry owner : <span>{{manuscript.repositoryOwner}}</span></li>
+                <li>repository location : <span>{{manuscript.repositoryLocation}}</span></li>
+            </ul>
+            {% if request.user == manuscript.inventor or request.user.role == 'ADMIN' %}
+            <div class="buttons">
+
+ <a href ={% url "edit" manuscript.id  %} class="btn-detail "> Edit  </a>
+ <a href ={% url "delete" manuscript.id  %} class="btn-detail"> Delete  </a>
+        
+           
+            </div>
+           {% endif %}
+         </div>
+    </div>
+</div>
+{% endblock main %}

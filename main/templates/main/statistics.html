@@ -1,0 +1,54 @@
+{% extends "main/navbarthree.html" %}
+{% block main %}
+
+<div class="m-3">
+    <hr>    
+
+    <table class="table">
+      <thead>
+        <tr>
+          <th >Title</th>
+          <th>statistics</th>
+          <th></th>
+         
+
+        </tr>
+      </thead>
+      <tbody>
+        <tr >
+            <td >Manuscripts</td>
+            <td>{{manuscripts}}</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td >Locations</td>
+            <td> {{locations}}</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td >Genres</td>
+            <td> {{genres}}</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td >Repository owners</td>
+            <td> {{owners}}</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td >Repositories</td>
+            <td >{{repository}}</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td >Languages</td>
+            <td >{{languages}}</td>
+            <td></td>
+          </tr>
+          
+
+      </tbody>
+    </table>
+ 
+  </div>
+{% endblock main %}

@@ -1,0 +1,32 @@
+{% extends "main/index.html" %}
+
+{% load widget_tweaks %}
+{% block main %}
+<div class="manuscript">
+    <div class="main-title">
+     <h3>Register Repository</h3>
+
+    </div>
+    <div class="manuscript-bg">
+ <form action="" method="post">
+{% csrf_token %}
+    <div class="form-box">
+        <div class=" form-box-bg">
+          <h3> <span>You can register Repository</span> <span class="form-box-subtitle">here ! </span></h3>
+        </div>
+        <div class="form-box-right">
+            {% for field in form %}
+            <div class="input-box">
+                <label for="" class="form-label">{{field.label_tag}}</label>
+                {{field | add_class:"form-input"}}
+            </div>
+            {% endfor %}
+            <input type="submit" class="btn-submit"/>
+
+        </div>
+
+    </div>
+ </form>
+</div>
+</div>
+{% endblock main %}
