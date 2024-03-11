@@ -11,9 +11,9 @@
                     <h1 class="profile-img-name">FT</h1>
                 </div> 
                 <div class="profile-desc">
-                    <h2>Fikir Fikre <span>(fkr)</span> </h2>
-                    <h3>fikirfikre15@gmail.com</h3>
-                    <h3>inventor</h3>
+                    <h2>{{user.first_name}} {{user.last_name}} <span>({{user.username}})</span> </h2>
+                    <h3>{{user.email}}</h3>
+                    <h3>{{user.role}}</h3>
                     <a href ={% url "editprofile" %}  class="btn-detail" style="margin-left:10px">Edit </a>
 
                 </div>
