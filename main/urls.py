@@ -4,7 +4,6 @@ urlpatterns = [
     path('login/',views.loginPage,name='login'),
     path('register/',views.register,name='register'),
     path('',views.home,name="home"),
-    path('settings/',views.setting,name="settings"),
     path('logout/',views.logoutPage,name="logout"),
     path('entry/manuscriptform/',views.manuscriptFormPage, name='manuscriptform'),
     path('entry/languageform/',views.LanguageFormPage,name="languageform"),
@@ -34,5 +33,8 @@ urlpatterns = [
     path("view/users/",views.users,name="users"),
     path("view/users/editUser/<int:pk>",views.usersEdit,name="edituser"),
     path("view/",views.view,name="view"),
-    path("entry/",views.entry,name="entry")
+    path("entry/",views.entry,name="entry"),
+    path("profile/",views.profile,name="profile"),
+    path("profile/edit/",views.editProfile,name="editprofile"),
+    path("view/statistics/",views.statistics,name="statistics")
 ]

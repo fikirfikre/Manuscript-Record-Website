@@ -58,17 +58,20 @@ def logoutPage(request):
 #     return render(request,'main/login.html')
 
 @login_required(login_url="login")
-def setting(request):
-    user = request.user.inventor
+def editProfile(request):
+    user = request.user
     form = InventorForm(instance=user)
     if (request.method == "POST"):
         form = InventorForm(request.POST,instance=user)
         if form.is_valid():
             form.save()
-            messages.info(request,"Your Profile is Updated")
+            return redirect("profile")
     context={'form':form}
-    return render(request,'main/settings.html',context)
-
+    return render(request,'main/edit-form.html',context)
+def profile(request):
+       user = request.user
+       context= {'user':user}
+       return render(request,'main/user-profile.html',context) 
 @login_required(login_url="login")
 @allowed_users(['INVENTOR'])
 def manuscriptFormPage(request):
@@ -86,7 +89,7 @@ def manuscriptFormPage(request):
     else:
         form = ManscriptForm()
     context ={'form':form}
-    return render(request,"main/manuscript.html",context)
+    return render(request,"main/form-manuscript.html",context)
 
 @login_required(login_url="login")
 @allowed_users(['INVENTOR'])
@@ -99,10 +102,11 @@ def LanguageFormPage(request):
             language.inventor = inventor
             language.save()
             return redirect('languages')
+
     else:
         form = LanguageForm()
     context ={'form':form}
-    return render(request,"main/language.html",context)
+    return render(request,"main/form-language.html",context)
 @login_required(login_url="login")
 @allowed_users(['INVENTOR'])
 def GenerFormPage(request):
@@ -118,7 +122,7 @@ def GenerFormPage(request):
     else:
         form = GenerForm()
     context ={'form':form}
-    return render(request,"main/gener.html",context)
+    return render(request,"main/form-genre.html",context)
 @login_required(login_url="login")
 @allowed_users(['INVENTOR'])
 def RepositoryFormPage(request):
@@ -132,7 +136,7 @@ def RepositoryFormPage(request):
             repo.inventor = inventor
             repo.save()
             return redirect('repo')
-    return render(request,"main/repository.html",context)
+    return render(request,"main/form-repository.html",context)
 @login_required(login_url="login")
 @allowed_users(['INVENTOR'])
 def RepositoryLocationFormPage(request):
@@ -146,7 +150,7 @@ def RepositoryLocationFormPage(request):
             location.inventor = inventor
             location.save()
             return redirect('locations')
-    return render (request,"main/repositoryLocation.html",context)
+    return render (request,"main/form-location.html",context)
 @login_required(login_url="login")
 @allowed_users(['INVENTOR'])
 def RepositoryOwnerFormpage(request):
@@ -160,7 +164,7 @@ def RepositoryOwnerFormpage(request):
             owner.inventor = inventor
             owner.save()
             return redirect('owners')
-    return render(request,"main/repositoryOwner.html",context)
+    return render(request,"main/form-owner.html",context)
 @login_required(login_url="login")
 def home(request):
     all_manuscripts = Manuscript.objects.all()
@@ -169,20 +173,24 @@ def home(request):
     
     count = 1
     for key,value in request.POST.items():
+        print(key)
         if(key != "csrfmiddlewaretoken"):
-          
+            print(value)
             if(value != ''):
                 count = count + 1
                 manuscripts = manuscriptFilter.qs
+                print(manuscripts)
+                print(count)
             else:
                 if count == 1:
                     manuscripts = []
-                break
+                
 
     if (request.POST.get('all_manuscripts')):
          manuscripts = all_manuscripts
+    print(manuscripts)
     context = {'manuscripts':manuscripts,"filter":manuscriptFilter}
-    return render(request,"main/home.html",context)
+    return render(request,"main/manuscript-list.html",context)
 
         #  request.session['selected_checkboxes'] = True
     # elif manuscriptFilter.has_active_filters():
@@ -203,14 +211,13 @@ def detail(request,pk):
 
     manuscript = Manuscript.objects.get(id=pk)
     context={"manuscript":manuscript}
-    return render (request,'main/detail.html',context)
+    return render (request,'main/manuscript-detail.html',context)
 
 @login_required(login_url="login")
 @allowed_users(['INVENTOR'])
 def edit(request,pk):
     manuscript = Manuscript.objects.get(id=pk)
-    inventor = User.objects.filter(user = request.user).first()
-    if(manuscript.inventor != inventor and request.user.role != "ADMIN" ):
+    if(manuscript.inventor != request.user and request.user.role != "ADMIN" ):
         return render(request,'main/notAllowed.html')
     form= ManscriptForm(instance=manuscript)
     if (request.method == "POST"):
@@ -219,13 +226,12 @@ def edit(request,pk):
             form.save()
             return redirect('home')
     context = {"form":form,'title':'Manuscript'}
-    return render(request,'main/edit.html',context)
+    return render(request,'main/edit-manuscript.html',context)
 @login_required(login_url="login")
 @allowed_users(['INVENTOR'])
 def delete(request,pk):
     manuscript = Manuscript.objects.get(id=pk)
-    inventor = User.objects.filter(user = request.user).first()
-    if(manuscript.inventor != inventor and request.user.role != "ADMIN"):
+    if(manuscript.inventor != request.user and request.user.role != "ADMIN"):
         return render(request,'main/notAllowed.html')
     if(request.method == "POST"):
         try:
@@ -239,13 +245,12 @@ def repositoryList(request):
 
     repositories = Repository.objects.all()
     context = {'objects' : repositories,'title':'Repositories','deleteUrl':"deleteRepo","editUrl":"editRepo"}
-    return render(request,'main/object_list.html',context)
+    return render(request,'main/object-list.html',context)
 @login_required(login_url="login")
 @allowed_users(['INVENTOR'])
 def deleteRepo(request,pk):
     reposiotry = Repository.objects.get(id=pk)
-    inventor = User.objects.filter(user = request.user).first()
-    if(reposiotry.inventor != inventor and request.user.role != "ADMIN"):
+    if(reposiotry.inventor != request.user and request.user.role != "ADMIN"):
         return render(request,'main/notAllowed.html')
     if(request.method == "POST"):
         try:
@@ -259,13 +264,13 @@ def deleteRepo(request,pk):
 def genreList(request):
     genres = Genre.objects.all()
     context = {'objects':genres,'title':"Genres",'deleteUrl':"deleteGenre","editUrl":"editGener"}
-    return render(request,'main/object_list.html',context)
+    return render(request,'main/object-list.html',context)
 @login_required(login_url="login")
 @allowed_users(['INVENTOR'])
 def deleteGenre(request,pk):
     genre = Genre.objects.get(id=pk)
-    inventor = User.objects.filter(user = request.user).first()
-    if(genre.inventor != inventor and request.user.role != "ADMIN"):
+
+    if(genre.inventor != request.user and request.user.role != "ADMIN"):
         return render(request,'main/notAllowed.html')
     if(request.method == "POST"):
         try:
@@ -279,14 +284,13 @@ def deleteGenre(request,pk):
 def OwnerList(request):
     owners = RepositoryOwner.objects.all()
     context = {'objects':owners,'title':"Owners",'deleteUrl':"deleteOwner","editUrl":"editOwner"}
-    return render(request,'main/object_list.html',context)
+    return render(request,'main/object-list.html',context)
 
 @login_required(login_url="login")
 @allowed_users(['INVENTOR'])
 def deleteOwner(request,pk):
     owners = RepositoryOwner.objects.get(id=pk)
-    inventor = User.objects.filter(user = request.user).first()
-    if(owners.inventor != inventor and request.user.role != "ADMIN"):
+    if(owners.inventor != request.user and request.user.role != "ADMIN"):
         return render(request,'main/notAllowed.html')
     if(request.method == "POST"):
         try:
@@ -300,14 +304,14 @@ def deleteOwner(request,pk):
 def LocationList(request):
     locations = RepositoryLocation.objects.all()
     context = {'objects':locations,'title':"Locations",'deleteUrl':"deleteLocation","editUrl":"editLocation"}
-    return render(request,'main/object_list.html',context)
+    return render(request,'main/object-list.html',context)
 
 @login_required(login_url="login")
 @allowed_users(['INVENTOR'])
 def deleteLocation(request,pk):
     location = RepositoryLocation.objects.get(id=pk)
-    inventor = User.objects.filter(user = request.user).first()
-    if(location.inventor != inventor and request.user.role != "ADMIN"):
+
+    if(location.inventor != request.user and request.user.role != "ADMIN"):
         return render(request,'main/notAllowed.html')
     if(request.method == "POST"):
         try:
@@ -320,13 +324,13 @@ def deleteLocation(request,pk):
 def LanguageList(request):  
     languages = Language.objects.all()
     context = {'objects':languages,'title':"Languages",'deleteUrl':"deleteLanguage","editUrl":"editLanguage"}
-    return render(request,'main/object_list.html',context)
+    return render(request,'main/object-list.html',context)
 @login_required(login_url="login")
 @allowed_users(['INVENTOR'])
 def deleteLanguage(request,pk):
     language = Language.objects.get(id=pk)
-    inventor = User.objects.filter(user = request.user).first()
-    if(language.inventor != inventor and request.user.role != "ADMIN"):
+
+    if(language.inventor != request.user and request.user.role != "ADMIN"):
         return render(request,'main/notAllowed.html')
     if(request.method == "POST"):
         try:
@@ -341,9 +345,8 @@ def notAllowed(request):
 @login_required(login_url="login")
 @allowed_users(['INVENTOR'])
 def editGener(request,pk):
-    inventor = User.objects.filter(user = request.user).first()
     genre = Genre.objects.get(id=pk)
-    if(genre.inventor != inventor and request.user.role != "ADMIN"):
+    if(genre.inventor != request.user and request.user.role != "ADMIN"):
         return render(request,'main/notAllowed.html')
     form = GenerForm(instance=genre)
     if request.method == "POST":
@@ -352,13 +355,12 @@ def editGener(request,pk):
             form.save()
             return redirect("genres")
     context={"form":form,"title":"Genre"}
-    return render(request,'main/edit.html',context)
+    return render(request,'main/edit-form.html',context)
 @login_required(login_url="login")
 @allowed_users(['INVENTOR'])
 def editOwner(request,pk):
     owner = RepositoryOwner.objects.get(id=pk)
-    inventor = User.objects.filter(user = request.user).first()
-    if(owner.inventor != inventor and request.user.role != "ADMIN"):
+    if(owner.inventor != request.user and request.user.role != "ADMIN"):
         return render(request,'main/notAllowed.html')
     
     form = RepositoryOwnerForm(instance=owner)
@@ -368,13 +370,12 @@ def editOwner(request,pk):
             form.save()
             return redirect("owners")
     context={"form":form,"title":"Repository Owner"}
-    return render(request,'main/edit.html',context)
+    return render(request,'main/edit-form.html',context)
 @login_required(login_url="login")
 @allowed_users(['INVENTOR'])
 def editLocation(request,pk ):
     location = RepositoryLocation.objects.get(id=pk)
-    inventor = User.objects.filter(user = request.user).first()
-    if(location.inventor != inventor and request.user.role != "ADMIN"):
+    if(location.inventor != request.user and request.user.role != "ADMIN"):
         return render(request,'main/notAllowed.html')
     form = RepositoryLocationForm(instance=location)
     if request.method == "POST":
@@ -383,13 +384,12 @@ def editLocation(request,pk ):
             form.save()
             return redirect("locations")
     context={"form":form,"title":"Repository Location"}
-    return render(request,'main/edit.html',context)
+    return render(request,'main/edit-form.html',context)
 @login_required
 @allowed_users(['INVENTOR'])
 def editLanguage(request,pk):
     language = Language.objects.get(id=pk)
-    inventor = User.objects.filter(user = request.user).first()
-    if(language.inventor != inventor and request.user.role != "ADMIN"):
+    if(language.inventor != request.user and request.user.role != "ADMIN"):
         return render(request,'main/notAllowed.html')
     form = LanguageForm(instance=language)
     if request.method == "POST":
@@ -398,13 +398,12 @@ def editLanguage(request,pk):
             form.save()
             return redirect("languages")
     context={"form":form,"title":" Language"}
-    return render(request,'main/edit.html',context)
+    return render(request,'main/edit-form.html',context)
 @login_required(login_url="login")
 @allowed_users(['INVENTOR'])
 def editRepository(request,pk):
     repository = Repository.objects.get(id=pk)
-    inventor = User.objects.filter(user = request.user).first()
-    if(repository.inventor != inventor and request.user.role != "ADMIN"):
+    if(repository.inventor != request.user and request.user.role != "ADMIN"):
         return render(request,'main/notAllowed.html')
     form = RepositoryForm(instance=repository)
     if request.method == "POST":
@@ -413,7 +412,8 @@ def editRepository(request,pk):
             form.save()
             return redirect("repo")
     context={"form":form,"title":"Repository"}
-    return render(request,'main/edit.html',context)
+    return render(request,'main/edit-form.html',context)
+@login_required(login_url="login")
 @onlyAdmin()
 def users(request):
     users = User.objects.all()
@@ -421,20 +421,43 @@ def users(request):
     paginator = Paginator(users,10)
     page_obj = paginator.get_page(page_number)
     context ={'page_obj':page_obj,'paginator':paginator,'page_range':range(1,paginator.num_pages+1)}
-    return render(request,'main/customer.html',context)
+    return render(request,'main/users-list.html',context)
 def usersEdit(request,pk):
-    u = User.objects.get(id=pk)
-    form = UserEditForm(request.POST,instance=u)
+    user = User.objects.get(id=pk)
+    form = UserEditForm(request.POST,instance=user)
     if (request.method == 'POST'):
         if form.is_valid():
-            u.role = form.cleaned_data['role']
-            u.email = form.cleaned_data['email']
-            u.save()
+            user.role = form.cleaned_data['role']
+            user.save()
             return  redirect('users')
-    context = {'form':form,'user':u}
-    return render(request,'main/useredit.html',context)
+    context = {'form':form,'user':user,'title':user.username}
+    return render(request,'main/edit-form.html',context)
+@login_required(login_url="login")
 def view(request):
     return render(request,"main/view.html")
+@login_required(login_url="login")
 @allowed_users()
 def entry(request):
     return render(request,"main/entry.html")
+@login_required(login_url="login")
+def setting(request):
+    user = request.user
+    context = {'user':user}
+    return render(request,'main/profile.html',context)
+@login_required(login_url="login")
+def statistics(request):
+    manuscripts = Manuscript.objects.count()
+    locations = RepositoryLocation.objects.count()
+    geners = Genre.objects.count()
+    owners = RepositoryOwner.objects.count()
+    repository = Repository.objects.count()
+    language = Language.objects.count()
+    context ={
+        "manuscripts":manuscripts,
+        "locations":locations,
+        "genres": geners,
+        "owners":owners,
+        "repository":repository,
+        "languages":language
+    }
+    return render(request,'main/statistics-list.html',context)

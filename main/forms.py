@@ -17,8 +17,8 @@ class UserCreationForm(UserCreationForm):
 class InventorForm(forms.ModelForm):
     class Meta:
         model = User
-        fields= "__all__"
-        exclude = ["user"]
+        fields= ["username","first_name","email","last_name"]
+        
 class SelectWithPlaceholder(widgets.Select):
     def __init__(self, attrs=None, **kwargs):
         super().__init__(attrs=attrs, **kwargs)
@@ -77,5 +77,5 @@ class LanguageForm(forms.ModelForm):
 class UserEditForm(forms.ModelForm):
     class Meta:
         model = User
-        fields = ['role','email']
+        fields = ['role']
               

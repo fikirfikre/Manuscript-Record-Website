@@ -8,7 +8,6 @@ class User(AbstractUser):
         INVENTOR= "INVENTOR", "inventor"
         ADMIN="ADMIN","admin"
     base_role = Role.READER
-
     role = models.CharField(max_length=10,choices = Role.choices,default=base_role)
 
     
@@ -51,7 +50,7 @@ class Repository(models.Model):
 
     
 class Language(models.Model):
-    name = models.CharField(max_length=100)
+    name = models.CharField(max_length=100,unique=True)
     inventor = models.ForeignKey(User, on_delete=models.PROTECT)
     def __str__(self):
         return self.name
