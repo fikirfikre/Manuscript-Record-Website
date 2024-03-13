@@ -2,6 +2,7 @@
 {%load widget_tweaks%}
 {% block main %}
 <div class="list-main-box">
+   
     <div class="search-box form-box-left">
         <form action="" method="post">
             {% csrf_token %}
@@ -38,7 +39,7 @@
         <form action="" method="post">
             <div class="table-box">
                 <div class="form-box-left">
-                <table>
+                <table class="table">
                     <thead>
                         <td>id</td>
                         <td>title</td>

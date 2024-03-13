@@ -19,7 +19,8 @@ def register(request):
         if form.is_valid():
             user_data = form.cleaned_data
             selectedRole = user_data['role']
-            print(selectedRole)
+            if (selectedRole == "ADMIN"):
+                selectedRole = "READER"
             user = User.objects.create_user(
                 username=user_data['username'],
                 first_name = user_data['first_name'],
@@ -76,14 +77,11 @@ def profile(request):
 @allowed_users(['INVENTOR'])
 def manuscriptFormPage(request):
     inventor = request.user
-    print(request.user.role)
     if request.method == "POST":
         form =ManscriptForm(request.POST)
-        print(form)
         if form.is_valid():
             mansucript=form.save(commit=False)
             mansucript.inventor=inventor
-            print(mansucript)
             mansucript.save()
             return redirect("home")
     else:
@@ -111,7 +109,6 @@ def LanguageFormPage(request):
 @allowed_users(['INVENTOR'])
 def GenerFormPage(request):
     inventor = request.user
-    print(User.objects.all())
     if request.method == "POST":
         form = GenerForm(request.POST)
         if form.is_valid():
@@ -173,14 +170,10 @@ def home(request):
     
     count = 1
     for key,value in request.POST.items():
-        print(key)
         if(key != "csrfmiddlewaretoken"):
-            print(value)
             if(value != ''):
                 count = count + 1
                 manuscripts = manuscriptFilter.qs
-                print(manuscripts)
-                print(count)
             else:
                 if count == 1:
                     manuscripts = []
@@ -188,7 +181,6 @@ def home(request):
 
     if (request.POST.get('all_manuscripts')):
          manuscripts = all_manuscripts
-    print(manuscripts)
     context = {'manuscripts':manuscripts,"filter":manuscriptFilter}
     return render(request,"main/manuscript-list.html",context)
 
@@ -279,6 +271,7 @@ def deleteGenre(request,pk):
         except ProtectedError:
             return redirect('notAllowed')
     return render(request,'main/delete.html',{"name":genre.name,"return_url":"genres"})
+
 @login_required(login_url="login")
 
 def OwnerList(request):
@@ -422,6 +415,8 @@ def users(request):
     page_obj = paginator.get_page(page_number)
     context ={'page_obj':page_obj,'paginator':paginator,'page_range':range(1,paginator.num_pages+1)}
     return render(request,'main/users-list.html',context)
+@login_required(login_url="login")
+@onlyAdmin()
 def usersEdit(request,pk):
     user = User.objects.get(id=pk)
     form = UserEditForm(request.POST,instance=user)
@@ -444,6 +439,7 @@ def setting(request):
     user = request.user
     context = {'user':user}
     return render(request,'main/profile.html',context)
+@onlyAdmin()
 @login_required(login_url="login")
 def statistics(request):
     manuscripts = Manuscript.objects.count()
