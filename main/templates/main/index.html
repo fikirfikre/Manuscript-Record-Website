@@ -53,6 +53,9 @@
                   <a href={% url "generform" %}>Genre</a>
                   <a href={% url "repositoryLocationform" %}>Location</a>
                   <a href={% url "repositoryownerform" %}>Owner</a>
+                  {% if request.user.role == "ADMIN"  %}
+                  <a href={% url "id" %}>Id</a>
+                  {% endif %}
                 </div>
               </div>
             </li>
@@ -64,11 +67,16 @@
                 </button>
                 <div class="dropdown-content">
                   <a href="{% url "home" %}">Manuscript</a>
+                  {% if request.user.role != "READER" %}
                   <a href="{% url "languages" %}">Language</a>
                   <a href="{% url "repo" %}">Repository</a>
                   <a href="{% url "genres" %}">Genre</a>
                   <a href="{% url "locations" %}">Location</a>
                   <a href="{% url "owners" %}">Owner</a>
+                  {% if request.user.role == 'ADMIN' %}
+                  <a href="{% url "ids" %}">ID</a>
+                  {% endif %}
+                  {% endif %}
                 </div>
               </div>
             </li>

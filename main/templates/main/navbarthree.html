@@ -37,7 +37,7 @@
             <li class="nav-item"><a class="nav-link" href="{% url "owners"%}">Repository Owner</a></li>
             <li class="nav-item"><a class="nav-link" href="{% url "locations"%}">Location</a></li>
             <li class="nav-item"><a class="nav-link" href="{% url "languages"%}">Language</a></li>
-            <li class="nav-item"><a class="nav-link" href="{% url "repo"%}">Repository</a></li>
+            {% comment %} <li class="nav-item"><a class="nav-link" href="{% url "repo"%}">Repository</a></li> {% endcomment %}
             {% if request.user.role == "ADMIN"%}
             <li class="nav-item"><a class="nav-link" href="{% url "users"%}">Users</a></li>
             <li class="nav-item"><a class="nav-link" href="{% url "statistics"%}">Statistics</a></li>

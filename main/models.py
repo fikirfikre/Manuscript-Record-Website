@@ -9,7 +9,11 @@ class User(AbstractUser):
         ADMIN="ADMIN","admin"
     base_role = Role.READER
     role = models.CharField(max_length=10,choices = Role.choices,default=base_role)
+class Classfication(models.Model):
+    name = models.CharField(max_length=255)
 
+    def __str__(self):
+        return self.name
     
 class Reader(models.Model): 
     user = models.OneToOneField(User, on_delete=models.CASCADE, null=True, related_name="reader")
@@ -25,6 +29,8 @@ class Genre(models.Model):
     def __str__(self):
         return self.name
 class RepositoryOwner(models.Model):
+    index = models.CharField(unique=True,max_length=255)
+    uid = models.ForeignKey(Classfication,on_delete=models.PROTECT)
     name = models.CharField(max_length = 255)
     inventor = models.ForeignKey(User, on_delete=models.PROTECT)
 
@@ -40,6 +46,8 @@ class RepositoryLocation(models.Model):
         return self.city
     
 class Repository(models.Model):
+    index = models.CharField(unique=True,max_length=255)
+    uid = models.ForeignKey(Classfication,on_delete=models.PROTECT)
     name = models.CharField(max_length = 255)
     description = models.TextField(blank=True, null=True)
     inventor = models.ForeignKey(User, on_delete=models.PROTECT)
@@ -54,12 +62,15 @@ class Language(models.Model):
     inventor = models.ForeignKey(User, on_delete=models.PROTECT)
     def __str__(self):
         return self.name
-    
+        
+
+  
 
    
 class Manuscript(models.Model):
-
-    mansucript_name = models.CharField(max_length = 100,blank=False,null=False)
+    index = models.CharField(unique=True,max_length=255)
+    uid = models.ForeignKey(Classfication,on_delete=models.PROTECT)
+    manuscript_name = models.CharField(max_length = 100,blank=False,null=False)
     repository = models.ForeignKey(Repository,on_delete = models.PROTECT)
     language = models.ForeignKey(Language, on_delete=models.PROTECT)
     genere = models.ForeignKey(Genre, on_delete=models.PROTECT)
@@ -86,4 +97,4 @@ class Manuscript(models.Model):
     def __str__(self):
         return self.mansucript_name
     
-    
+

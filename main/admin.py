@@ -10,4 +10,5 @@ admin.site.register(Genre)
 admin.site.register(Language)
 admin.site.register(User)
 admin.site.register(Reader)
+admin.site.register(Classfication)
 

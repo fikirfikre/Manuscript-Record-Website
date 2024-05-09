@@ -80,8 +80,10 @@ def manuscriptFormPage(request):
     if request.method == "POST":
         form =ManscriptForm(request.POST)
         if form.is_valid():
+            
             mansucript=form.save(commit=False)
             mansucript.inventor=inventor
+            mansucript.index = generate_uid(form.cleaned_data['uid'],Manuscript)
             mansucript.save()
             return redirect("home")
     else:
@@ -89,8 +91,13 @@ def manuscriptFormPage(request):
     context ={'form':form}
     return render(request,"main/form-manuscript.html",context)
 
+def generate_uid(code,model):
+    object = model.objects.filter(uid__name=code).order_by("-index")
+    lastnumber = 1 if not object else int(object.first().index.split('-')[1]) + 1
+    return f"{code}-{lastnumber:03d}"
 @login_required(login_url="login")
 @allowed_users(['INVENTOR'])
+
 def LanguageFormPage(request):
     inventor = request.user
     if request.method == "POST":
@@ -131,6 +138,7 @@ def RepositoryFormPage(request):
         if form.is_valid():
             repo = form.save(commit=False)
             repo.inventor = inventor
+            repo.index = generate_uid(form.cleaned_data['uid'],Repository)
             repo.save()
             return redirect('repo')
     return render(request,"main/form-repository.html",context)
@@ -159,6 +167,7 @@ def RepositoryOwnerFormpage(request):
         if form.is_valid():
             owner = form.save(commit=False)
             owner.inventor = inventor
+            owner.index = generate_uid(form.cleaned_data['uid'],RepositoryOwner)
             owner.save()
             return redirect('owners')
     return render(request,"main/form-owner.html",context)
@@ -231,7 +240,7 @@ def delete(request,pk):
             return redirect('home')
         except ProtectedError:
             return redirect('main/notAllowed.html')
-    return render(request,'main/delete.html',{"name":manuscript.mansucript_name,"return_url":"home"})
+    return render(request,'main/delete.html',{"name":manuscript.manuscript_name,"return_url":"home"})
 @login_required(login_url="login")
 def repositoryList(request):
 
@@ -457,3 +466,42 @@ def statistics(request):
         "languages":language
     }
     return render(request,'main/statistics-list.html',context)
+@login_required(login_url="login")
+@onlyAdmin()
+def registerId(request):
+    form = IdForm()
+    if(request.method == "POST"):
+        form = IdForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect("ids")
+    return render(request,'main/form-id.html',{"form":form})
+@login_required(login_url="login")
+@onlyAdmin()
+def idList(request):
+    repositories = Classfication.objects.all()
+    context = {'objects' : repositories,'title':'IDs','deleteUrl':"deleteId","editUrl":"editId"}
+    return render(request,'main/object-list.html',context)
+@login_required(login_url="login")
+@onlyAdmin()
+def idEdit(request,pk):
+    classfication = Classfication.objects.get(id=pk)
+    form = IdForm(instance=classfication)
+    if (request.method == "POST"):
+        form = IdForm(request.POST,instance=classfication)
+        if form.is_valid():
+            form.save()
+            return redirect("ids")
+    context = {"form":form, "title":"Id"}
+    return render(request,'main/edit-form.html',context)
+@login_required(login_url="login")
+@onlyAdmin()     
+def idDelete(request,pk):
+    classfication = Classfication.objects.get(id=pk)
+    if(request.method == "POST"):
+            try:
+                classfication.delete()
+                return redirect("ids")
+            except:
+                return redirect('notAllowed')
+    return render(request,'main/delete.html',{"name":classfication.name,"return_url":"ids"})

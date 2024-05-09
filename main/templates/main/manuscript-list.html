@@ -36,25 +36,47 @@
 
     {% if manuscripts %}
     <div class="box-list">
-        <form action="" method="post">
+        {% comment %} <div class="container"> {% endcomment %}
+        <form action="" method="post" class="container">
             <div class="table-box">
-                <div class="form-box-left">
+                <div class="">
                 <table class="table">
                     <thead>
-                        <td>id</td>
+                        <td>index</td>
                         <td>title</td>
                         <td>Genre</td>
                         <td>language</td>
+                        <td>repository</td>
+                        <td>owner</td>
+                        
+                        <td>Location</td>
+                        <td>inventor</td>
+                        <td>Created Date</td>
                         <td></td>
 
                     </thead>
                     <tbody>
                         {% for obj in manuscripts %}
                         <tr>
-                            <td>{{forloop.counter}}</td>
-                            <td>{{obj.mansucript_name}}</td>
+                            <td>{{obj.index}}</td>
+                            <td>{{obj.manuscript_name}}</td>
                             <td>{{obj.genere}}</td>
                             <td>{{obj.language}}</td>
+                            <td>{{obj.repository}}</td>
+                            <td>{{obj.repositoryOwner}}</td>
+                            <td>{{obj.repositoryLocation}}</td>
+                            <td>{{obj.inventor}}</td>
+                            <td>{{obj.inventory_date}}</td>
+                            {% comment %} <td>{{obj.resp_statement}}</td> {% endcomment %}
+                            {% comment %} <td>{{obj.inventory_date}}</td>
+                            <td>{{obj.measurement}}</td>
+                            <td>{{obj.follos_number}}</td>
+                            <td>{{obj.binding}}</td>
+                            <td>{{obj.main_content}}</td>
+                            <td>{{obj.dating}}</td>
+                            <td>{{obj.other_provenance}}</td>
+                            <td>{{obj.scripe}}</td>
+                            <td>{{obj.no_of_cols}}</td> {% endcomment %}
                             <td>                <a href ={% url "detail" obj.id %} class="btn-detail"> Detail </a></td>
                         </tr>
                         {% endfor %}

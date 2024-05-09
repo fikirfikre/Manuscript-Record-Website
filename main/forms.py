@@ -18,7 +18,11 @@ class InventorForm(forms.ModelForm):
     class Meta:
         model = User
         fields= ["username","first_name","email","last_name"]
-        
+
+class IdForm(forms.ModelForm):
+    class Meta:
+        model = Classfication
+        fields = ["name"]     
 class SelectWithPlaceholder(widgets.Select):
     def __init__(self, attrs=None, **kwargs):
         super().__init__(attrs=attrs, **kwargs)
@@ -29,29 +33,31 @@ class ManscriptForm(forms.ModelForm):
     class Meta:
         model = Manuscript
         fields ="__all__"
-        exclude = ["inventor"]
+        exclude = ["inventor","index"]
 
-        widgets = {
-            'genere':  forms.Select(choices=Genre.objects.all(),attrs={'empty_label': 'Select a genre'}),
-            'language':  forms.Select(choices=Language.objects.all(),attrs={'empty_label': 'Select a language'}),
-            'repository':  forms.Select(choices=Repository.objects.all(),attrs={'empty_label': 'Select a repository'}),
-            'repositoryOwner':  forms.Select(choices=RepositoryOwner.objects.all(),attrs={'empty_label': 'Select a owner'}),
-            'repositoryLocation':  forms.Select(choices=RepositoryLocation.objects.all(),attrs={'empty_label': 'Select a location'}),
+    #     widgets = {
+    #         'genere':  forms.Select(choices=Genre.objects.all(),attrs={'empty_label': 'Select a genre'}),
+    #         'language':  forms.Select(choices=Language.objects.all(),attrs={'empty_label': 'Select a language'}),
+    #         'repository':  forms.Select(choices=Repository.objects.all(),attrs={'empty_label': 'Select a repository'}),
+    #         'repositoryOwner':  forms.Select(choices=RepositoryOwner.objects.all(),attrs={'empty_label': 'Select a owner'}),
+    #         'repositoryLocation':  forms.Select(choices=RepositoryLocation.objects.all(),attrs={'empty_label': 'Select a location'}),
+    #         'uid':  forms.Select(choices=Classfication.objects.all(),attrs={'empty_label': 'Select a location'}),
 
-        }
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.fields['genere'].empty_label = "Select genre"
-        self.fields['language'].empty_label = "Select language"
-        self.fields['repository'].empty_label = "Select repository"
-        self.fields['repositoryOwner'].empty_label = "Select repository owner"
-        self.fields['repositoryLocation'].empty_label = "Select repository location"
+    #     }
+    # def __init__(self, *args, **kwargs):
+    #     super().__init__(*args, **kwargs)
+    #     self.fields['genere'].empty_label = "Select genre"
+    #     self.fields['language'].empty_label = "Select language"
+    #     self.fields['repository'].empty_label = "Select repository"
+    #     self.fields['repositoryOwner'].empty_label = "Select repository owner"
+    #     self.fields['repositoryLocation'].empty_label = "Select repository location"
+    #     self.fields['uid'].empty_label = "select id prefix"
 
 class RepositoryOwnerForm(forms.ModelForm):
     class Meta:
         model = RepositoryOwner
         fields = "__all__"
-        exclude = ["inventor"]
+        exclude = ["inventor","index"]
 
 class RepositoryLocationForm(forms.ModelForm):
     class Meta:
@@ -62,7 +68,7 @@ class RepositoryForm(forms.ModelForm):
     class Meta:
         model = Repository
         fields = "__all__"
-        exclude = ["inventor"]
+        exclude = ["inventor","index"]
 class GenerForm(forms.ModelForm):
     class Meta:
         model = Genre
