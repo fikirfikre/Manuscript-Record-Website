@@ -22,12 +22,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY ='django-insecure-q7z(r34*4@k0v2-)scfl3y*4i3wwke7xshyi94%#ol@y_!o)nc'
+SECRET_KEY =  os.environ.get("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+# DEBUG = True
 
-ALLOWED_HOSTS =[]
+ALLOWED_HOSTS =os.environ.get('ALLOWED_HOSTS').split(" ")
 
 
 # Application definition
@@ -80,19 +80,19 @@ WSGI_APPLICATION = 'manuscript.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
-DATABASES = {
-'default': {
-'ENGINE': 'django.db.backends.mysql',
-'NAME': 'mydb',
-'USER': 'root',
-'PASSWORD': 'root',
-'HOST':'localhost',
-'PORT':'3306',
-}
-}
-database_url = "postgres://manuscript_database_user:vysQjdB3qbRRABDFlipbMwhZCSE73NoB@dpg-cnnc6rf79t8c739hqga0-a.oregon-postgres.render.com/manuscript_database"
-DATABASES["default"]=dj_database_url.parse(database_url)
-
+# DATABASES = {
+# 'default': {
+# 'ENGINE': 'django.db.backends.mysql',
+# 'NAME': 'mydb',
+# 'USER': 'root',
+# 'PASSWORD': 'root',
+# 'HOST':'localhost',
+# 'PORT':'3306',
+# }
+# }
+# database_url = "postgres://manuscript_database_user:vysQjdB3qbRRABDFlipbMwhZCSE73NoB@dpg-cnnc6rf79t8c739hqga0-a.oregon-postgres.render.com/manuscript_database"
+# DATABASES["default"]=dj_database_url.parse(database_url)
+database_url = os.environ.get('DATABASE_URL')
 
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
