@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import Permission, Group,AbstractUser
-
+from django.core.validators import FileExtensionValidator
 
 class User(AbstractUser):
     class Role(models.TextChoices):
@@ -24,7 +24,6 @@ class Reader(models.Model):
         return self.name 
 class Genre(models.Model):
     name = models.CharField(max_length = 100)
-    description = models.TextField(blank=True, null=True)
     inventor = models.ForeignKey(User, on_delete=models.PROTECT)
     def __str__(self):
         return self.name
@@ -38,18 +37,16 @@ class RepositoryOwner(models.Model):
         return self.name
 
 class RepositoryLocation(models.Model):
-    country = models.CharField(max_length=100)
-    city = models.CharField(max_length=255)
+    location = models.CharField(max_length=255)
     inventor = models.ForeignKey(User, on_delete=models.PROTECT)
     
     def __str__(self):
-        return self.city
+        return self.location
     
 class Repository(models.Model):
     index = models.CharField(unique=True,max_length=255)
     uid = models.ForeignKey(Classfication,on_delete=models.PROTECT)
     name = models.CharField(max_length = 255)
-    description = models.TextField(blank=True, null=True)
     inventor = models.ForeignKey(User, on_delete=models.PROTECT)
     def __str__(self):
         return self.name
@@ -63,38 +60,47 @@ class Language(models.Model):
     def __str__(self):
         return self.name
         
-
+class Inventor(models.Model):
+    name = models.CharField(max_length=255)
+    inventor = models.ForeignKey(User, on_delete=models.PROTECT)
+    def __str__(self):
+        return self.name
   
 
    
 class Manuscript(models.Model):
     index = models.CharField(unique=True,max_length=255)
     uid = models.ForeignKey(Classfication,on_delete=models.PROTECT)
-    manuscript_name = models.CharField(max_length = 100,blank=False,null=False)
     repository = models.ForeignKey(Repository,on_delete = models.PROTECT)
-    language = models.ForeignKey(Language, on_delete=models.PROTECT)
-    genere = models.ForeignKey(Genre, on_delete=models.PROTECT)
-    inventor = models.ForeignKey(User, on_delete=models.PROTECT)
-    repositoryOwner = models.ForeignKey(RepositoryOwner,on_delete=models.PROTECT)
+    language = models.ManyToManyField(Language)
+    genere = models.ManyToManyField(Genre)
     repositoryLocation = models.ForeignKey(RepositoryLocation,on_delete = models.PROTECT)
-    shelf_mark = models.CharField(max_length=50,null=False,blank=False)
-    resp_statement = models.CharField( max_length=50,null=False,blank=False)
-    inventory_date = models.DateField(auto_now_add=True,null=False,blank=False)
+    inventor = models.ForeignKey(User, on_delete=models.PROTECT)
+    manuscript_name = models.CharField(max_length = 100,null=False,blank=False)
+    # inventor = models.ForeignKey(Inventor, on_delete=models.PROTECT)
+    repositoryOwner = models.CharField(max_length=255)
+    
+    shelf_mark_By_Instutition = models.CharField(max_length=50,null=False,blank=False)
+    shelf_mark_By_author  = models.CharField(max_length=50,null=False,blank=False)
+    responsiblit_statement = models.CharField( max_length=50,null=False,blank=False)
+    upload_date = models.DateField(auto_now_add=True,null=False,blank=False)
+    inventor_date = models.CharField(max_length=255)
     measurement =models.CharField(max_length=50,null=False,blank=False)
-    follos_number = models.IntegerField(null=False,blank=False)
+    folios_number = models.IntegerField(null=False,blank=False)
     binding = models.CharField(max_length=100,null=False,blank=False)
     main_content = models.CharField(null=False,blank=False,max_length=500)
-    dating = models.CharField(max_length=50,null=False,blank=False)
+    dating = models.CharField(max_length=50,blank=True, null=True)
     other_provenance = models.CharField(max_length=50,blank=True, null=True)
     scripe = models.CharField(max_length=50,blank=True, null=True)
     no_of_cols = models.IntegerField(null=False,blank=False )
     notes_cur_use = models.TextField(blank=True, null=True)    
     no_of_lines = models.IntegerField(null=False,blank=False)
-    decoration = models.CharField(max_length=255,null=False,blank=False)
-    colophones = models.CharField( max_length=50,null=False,blank=False)
+    decoration = models.CharField(max_length=255,null=True,blank=True)
+    colophones = models.CharField( max_length=50,null=True,blank=True)
     additional_notes = models.TextField(blank=True, null=True)
+    image = models.ImageField(upload_to='book_images/', validators=[FileExtensionValidator(allowed_extensions=['jpg', 'jpeg', 'png'])],blank=True, null=True)
 
     def __str__(self):
-        return self.mansucript_name
+        return self.manuscript_name
     
 

@@ -34,6 +34,17 @@ class ManscriptForm(forms.ModelForm):
         model = Manuscript
         fields ="__all__"
         exclude = ["inventor","index"]
+        widgets ={
+            'language': forms.SelectMultiple(attrs={'class':' form-control'}),
+             'genere' : forms.SelectMultiple(attrs={'class':'form-control multiselect'}),
+        }
+    def __init__(self,*args, **kwargs):
+        super(ManscriptForm,self).__init__(*args,**kwargs)
+        # self.fields['genere'].empty_label = "select gener"
+        self.fields['repository'].empty_label = "Repository"
+        self.fields['uid'].empty_label = "select code"
+        self.fields['repositoryLocation'].empty_label = "select location"
+        
 
     #     widgets = {
     #         'genere':  forms.Select(choices=Genre.objects.all(),attrs={'empty_label': 'Select a genre'}),

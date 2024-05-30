@@ -1,4 +1,4 @@
-{% extends "main/index.html" %}
+{% extends "main/index-manuscript.html" %}
 {% load widget_tweaks %}
 {% block main %}
 <div class="manuscript">
@@ -7,7 +7,7 @@
      </div>
 <div class="manuscript-bg">
 
-    <form action="" method="post">
+    <form action="" method="post" enctype="multipart/form-data">
         {% csrf_token %}
         <div class="form-box">
             <div class="form-box-left">
@@ -37,4 +37,61 @@
     </form>
 </div>
 </div>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<!-- Bootstrap JS -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+<!-- Bootstrap Multiselect JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.15/js/bootstrap-multiselect.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $('#id_language').multiselect({
+            includeSelectAllOption: true,
+            nonSelectedText: 'Select languages',
+            enableFiltering: true,
+            enableCaseInsensitiveFiltering: true,
+            buttonWidth: '30rem',
+            buttonheight:'5rem'
+        });
+    });
+    $(document).ready(function() {
+        $('#id_genere').multiselect({
+            includeSelectAllOption: true,
+            nonSelectedText: 'Select Genre',
+            enableFiltering: true,
+            enableCaseInsensitiveFiltering: true,
+            buttonWidth: '30rem',
+            buttonheight:'5rem'
+        });
+    });
+    $(document).ready(function() {
+        $('#id_uid').multiselect({
+            includeSelectAllOption: true,
+            nonSelectedText: 'Select Genre',
+            enableFiltering: true,
+            enableCaseInsensitiveFiltering: true,
+            buttonWidth: '30rem',
+            buttonheight:'5rem'
+        });
+    });
+    $(document).ready(function() {
+        $('#id_repositoryLocation').multiselect({
+            includeSelectAllOption: true,
+            nonSelectedText: 'Select Genre',
+            enableFiltering: true,
+            enableCaseInsensitiveFiltering: true,
+            buttonWidth: '30rem',
+            buttonheight:'5rem'
+        });
+    });
+    $(document).ready(function() {
+        $('#id_repository').multiselect({
+            includeSelectAllOption: true,
+            nonSelectedText: 'Select Genre',
+            enableFiltering: true,
+            enableCaseInsensitiveFiltering: true,
+            buttonWidth: '30rem',
+            buttonheight:'5rem'
+        });
+    });
+</script>
 {% endblock main %}

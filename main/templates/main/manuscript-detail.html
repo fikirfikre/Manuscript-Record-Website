@@ -3,10 +3,11 @@
 <div class="detail">
     <div class="form-box-left">
         <div class="main-title">
-            <h3> {{manuscript.mansucript_name}}</h3>
+            <h3> {{manuscript.manuscript_name}}</h3>
          </div>
-         <div class="detail-list">
-            <ul>
+         <div class="detail-list container ">
+            <div class= "d-flex flex-row justify-content-between">
+            <ul class="col-md-6">
                 <li>shelf mark : <span>{{manuscript.shelf_mark}}</span></li>
                 <li>resp_statement : <span>{{manuscript.resp_statement}}</span></li>
                 <li>inventory_date : <span>{{manuscript.inventory_date}}</span></li>
@@ -24,12 +25,23 @@
                 <li>colophones : <span>{{manuscript.colophones}}</span></li>
                 <li>additional notes : <span>{{manuscript.additional_notes}}</span></li>
                 <li>repository : <span>{{manuscript.repository}}</span></li>
-                <li>lanugage : <span>{{manuscript.language}}</span></li>
-                <li>gener : <span>{{manuscript.genere}}</span></li>
+                <li>lanugage : <span>{% for lan in manuscript.language.all %}
+                    {{lan}}
+                    {% endfor %}</span></li>
+                <li>gener : <span>{% for gener in manuscript.genere.all %}
+                    {{gener}}
+                    {% endfor %}</span></li>
                 <li>inventor : <span>{{manuscript.inventor}}</span></li>
                 <li>reposiotry owner : <span>{{manuscript.repositoryOwner}}</span></li>
                 <li>repository location : <span>{{manuscript.repositoryLocation}}</span></li>
             </ul>
+            <div class="d-flex flex-column justify-content-between col-md-6">
+                {% if manuscript.image %}
+                <div>
+                    <img src = {{manuscript.image.url}} class="img-fluid"/> 
+                  </div>
+                {% endif %}
+            
             {% if request.user == manuscript.inventor or request.user.role == 'ADMIN' %}
             <div class="buttons">
 
@@ -39,6 +51,7 @@
            
             </div>
            {% endif %}
+        </div>
          </div>
     </div>
 </div>

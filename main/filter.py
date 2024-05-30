@@ -7,7 +7,15 @@ class ManuscriptFilter(django_filters.FilterSet):
     
     class Meta:
         model = Manuscript
-        fields = ["genere","language","repository","repositoryOwner","repositoryLocation"]
+        fields = ["genere","language","repository","repositoryLocation"]
+    def __init__(self,*args,**kwargs):
+        super(ManuscriptFilter,self).__init__(*args,**kwargs)
+        # self.filters['genere'].extra.update({'empty_label': "select genre"})
+        self.filters['repository'].extra.update({'empty_label':'Repositories'})
+        # self.fields['uid'].empty_label = "select code"
+        self.filters['repositoryLocation'].extra.update({'empty_label':"Locations"})
+      
+
     def has_active_filters(self):
         # Check if any filter options are selected (excluding "all_manuscripts")
         print(self.data.items())
@@ -19,5 +27,3 @@ class ManuscriptFilter(django_filters.FilterSet):
     def has_results(self):
         # Return True only if the filter QuerySet contains results
         return self.qs.exists()
-        
-      

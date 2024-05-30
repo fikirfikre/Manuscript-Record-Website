@@ -35,7 +35,7 @@
                                 <!-- <span class="input-group-text border-0 px-1" id="basic-addon2"><i class="fas fa-search fa-lg" style="color: #939597;"></i></span> -->
                                 
                                   {% for field in filter.form.visible_fields|slice:"4:5" %}  
-                                  <input type="text" style="z-index:inherit" class="form-control form-control-lg rounded" placeholder="Search manuscript....." {{ field.as_widget }}
+                                  <input type="text" class="form-control form-control-lg rounded" placeholder="Search manuscript....." {{ field.as_widget }}
                                   {%endfor%}
                             </div>
                           </div>
@@ -99,9 +99,7 @@
                         <tr>
                             <td>{{obj.index}}</td>
                             <td>{{obj.manuscript_name}}</td>
-                            <td>{% for genre in obj.genere.all %}
-                                {{genre}}
-                                {% endfor %}</td>
+                            <td>{{obj.genere}}</td>
                             <td>{% for lan in obj.language.all %}
                                 {{lan}}
                                 {% endfor %}</td>

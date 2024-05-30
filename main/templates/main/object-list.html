@@ -6,13 +6,13 @@
   </div>
   <div class="table-box">
     <div class="form-box-left container" >
-      <table class="table">
+      <table class="table ">
         <thead>
           <tr>
             <th>Index</th>
             {% if title == "Locations" %}
-            <th>Country</th>
-            <th>City</th>
+            <th>Location</th>
+            
             {% else %}
             {% if title == "Repositories" or title == "Owners"%}
             <th>ID</th>
@@ -29,12 +29,12 @@
         <tbody>
           {% for object in  objects %}
           <tr>
-            <td>{{forloop.counter }}</td>
+            <td>{{ objects.start_index|add:forloop.counter0 }}</td>
             {% if title == "Locations" %}
       
-              <td>{{object.country}}</td>
             
-              <td>{{object.city}}</td>
+            
+              <td>{{object.location}}</td>
               {% else %}
               {% if object.index %}
               <td>{{object.index}}</td>
@@ -59,7 +59,28 @@
       
         </tbody>
       </table>
+
+      <div class="pagination">
+        <span class="step-links">
+            {% if objects.has_previous %}
+            <a href="?page=1">&laquo; first </a>
+            <a href="?page={{objects.previous_page_number}}"> previous </a>
+    
+            {% endif %}
+        </span>
+
+        <span class="current">
+            Page {{objects.number}} of {{objects.paginator.num_pages}}.
+        </span>
+
+        {% if objects.has_next %}
+        <a href="?page={{objects.next_page_number}}">next </a>
+        <a href = "?page={{objects.paginator.num_pages}}">last &raquo; </a>
+        {% endif %}
     </div>
+    </div>
+
+    
   </div>
  
 

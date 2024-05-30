@@ -3,6 +3,11 @@
     padding: 0.5rem;
 
 }
+.multiselect-native-select{
+    box-shadow: none; /* Remove the shadow */
+    border-color: transparent; /* Set border color to transparent */
+}
+
 .main-section{
     display: flex;
     flex-direction: column;
