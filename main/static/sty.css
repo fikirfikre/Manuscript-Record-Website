@@ -190,7 +190,7 @@ color: #CEA676ff;
 }
 .main-text{
     text-transform: uppercase;
-    margin-bottom: 6rem;
+    margin-top: 1rem;
     z-index: -1;
 }
 .main-box{
@@ -334,7 +334,7 @@ color: #CEA676ff;
 }
 .form-label{
     margin: 0.5rem;
-    font-size: 1.2rem;
+    font-size: 1.5rem;
 
 }
 .form-input{

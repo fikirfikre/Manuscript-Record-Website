@@ -2,6 +2,25 @@
 {% load widget_tweaks %}
 {% block main %}
 <div class="manuscript">
+    <style>
+        .multiselect-container {
+            max-height: 30rem;
+            overflow-y: auto;
+            overflow-x: hidden;
+            font-size: 1.2rem;
+            width: 100%;
+        }
+        .multiselect-selected-text , .btn{
+            font-size: 1.3rem;
+        }
+        .form-label{
+            font-size; 2rem;
+            font-weight: bold;
+
+        }
+      
+
+    </style>
     <div class="main-title">
         <h3> Register Manuscript</h3>
      </div>
@@ -11,7 +30,13 @@
         {% csrf_token %}
         <div class="form-box container">
             <div class="form-box-left">
-                {% for field in  form.visible_fields|slice:":16" %}
+                {% for field in  form.visible_fields|slice:":6" %}
+                <div class="input-box ">
+                    <label for="" class="form-label">{{field.label_tag}}</label>
+                    {{field | add_class:"form-control  w-75 h-25 form-control-lg"}}
+                </div>
+                {% endfor %}
+                {% for field in  form.visible_fields|slice:"6:16" %}
                 <div class="input-box ">
                     <label for="" class="form-label">{{field.label_tag}}</label>
                     {{field | add_class:"form-control  w-75 h-25 form-control-lg"}}
@@ -24,7 +49,7 @@
             <div class="form-box-right">
                 {% for field in  form.visible_fields|slice:"16:" %}
                 <div class="input-box">
-                    <label for="" class="form-label">{{field.label_tag}}</label>
+                    <label for="" class="form-label text-capitalize fs-5">{{field.label_tag}}</label>
                     
                     {% if field.label == "Image" %}
                    

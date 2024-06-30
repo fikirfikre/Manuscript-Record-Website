@@ -94,11 +94,13 @@ def manuscriptFormPage(request):
             mansucript.inventor = inventor
             mansucript.index = generate_uid(form.cleaned_data["uid"], Manuscript)
             selected_language = form.cleaned_data["language"]
+            selected_genre = form.cleaned_data["genere"]
 
             # mansucript.language.set(selected_language)
             # print(mansucript.language)
             mansucript.save()
             mansucript.language.set(selected_language)
+            mansucript.genere.set(selected_genre)
             return redirect("home")
     else:
         form = ManscriptForm()
@@ -314,6 +316,8 @@ def deleteGenre(request, pk):
         return render(request, "main/notAllowed.html")
     if request.method == "POST":
         try:
+            if Manuscript.objects.filter(genre=genre).exists():
+                return redirect("notAllowed")
             genre.delete()
             return redirect("genres")
         except ProtectedError:
@@ -415,6 +419,8 @@ def deleteLanguage(request, pk):
         return render(request, "main/notAllowed.html")
     if request.method == "POST":
         try:
+            if Manuscript.objects.filter(language=language).exists():
+                return redirect("notAllowed")
             language.delete()
             return redirect("languages")
         except ProtectedError:
