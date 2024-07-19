@@ -26,7 +26,7 @@
             <section class="intro">
                 <div class="bg-image">
                   <div class="mask d-flex align-items-center ">
-                    <div class="container">
+                    <div class="form-box-left px-10 table-box">
                       <div class="row">
                         <div class="col-md-10 col-lg-8 col-xl-7 mx-auto">
                           <div class="card mb-2">
@@ -78,7 +78,7 @@
     {% if manuscripts %}
     <div class="box-list ">
         {% comment %} <div class="container"> {% endcomment %}
-            <div class="table-box container px-10 manu-list">
+            <div class="table-box form-box-left px-10 manu-list">
                 <div class="">
                 <table class="table ">
                     <thead>
@@ -98,7 +98,7 @@
                         {% for obj in manuscripts %}
                         <tr>
                             {% comment %} <td>{{obj.start_index|add:forloop.counter0}}</td> {% endcomment %}
-                            <td>{{obj.manuscript_name}}</td>
+                            <td>{{obj.manuscript_title}}</td>
                             <td>{% for genre in obj.genere.all %}
                                 {{genre}}
                                 {% endfor %}</td>

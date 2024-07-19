@@ -23,7 +23,6 @@ from pathlib import Path
 
 # SECURITY WARNING: keep the secret key used in production secret!
 # SECRET_KEY =  os.environ.get("SECRET_KEY")
-
 SECRET_KEY ='django-insecure-q7z(r34*4@k0v2-)scfl3y*4i3wwke7xshyi94%#ol@y_!o)nc'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False

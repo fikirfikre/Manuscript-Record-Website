@@ -102,7 +102,7 @@
             buttonheight:'5rem'
         });
     });
-    $(document).ready(function() {
+    {% comment %} $(document).ready(function() {
         $('#id_repository').multiselect({
             includeSelectAllOption: true,
             nonSelectedText: 'Select Genre',
@@ -111,6 +111,6 @@
             buttonWidth: '30rem',
             buttonheight:'5rem'
         });
-    });
+    }); {% endcomment %}
 </script>
 {% endblock main %}
