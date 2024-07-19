@@ -21,7 +21,7 @@ df = pd.read_excel(file_path)
 df.columns = df.columns.str.strip()
 
 # Handle NaN values for numerical fields with a default value
-def handle_nan(value, default=0):
+def handle_nan(value, default="None"):
     return value if pd.notna(value) else default
 
 # Iterate over the rows of the dataframe and insert into the database
@@ -29,9 +29,9 @@ for index, row in df.iterrows():
     
         # Retrieve or create the repository
         inventor = User.objects.first()
-        repository, created = Repository.objects.get_or_create(name=row['Name of the current repository'], defaults={'inventor': inventor})
-        if not created:
-            print(f"Repository already exists: {repository.name}")
+        # repository, created = Repository.objects.get_or_create(name=row['Name of the current repository'], defaults={'inventor': inventor})
+        # if not created:
+        #     print(f"Repository already exists: {repository.name}")
         
         # Retrieve or create the repository location
         repository_location, created = RepositoryLocation.objects.get_or_create(location=row['Physical address'], defaults={'inventor': inventor})
@@ -54,23 +54,23 @@ for index, row in df.iterrows():
 
         # Create the manuscript instance
         manuscript = Manuscript(
-            repository=repository,
+            repository=handle_nan(row['Name of the current repository']),
             repositoryLocation=repository_location,
-            manuscript_name=row['Name of the current repository'],
-            repositoryOwner=row['Owner(s):'],
-            shelf_mark_By_Instutition=row['Shelfmark(s) given by the repository'],
-            shelf_mark_By_author=row['Scribe:'],
-            responsiblit_statement=row['Responsibility Statement'],
-            inventor_date=row['Dating (with explanation)'],
-            measurement=row['Measurements (height x width + thickness, mm)'],
+            manuscript_title=handle_nan(row['Name of the current repository']),
+            repository_owner=handle_nan(row['Owner(s):']),
+            shelf_mark_By_Instutition=handle_nan(row['Shelfmark(s) given by the repository']),
+            shelf_mark_By_author=handle_nan(row['Scribe:']),
+            responsibility_statement=handle_nan(row['Responsibility Statement']),
+            inventor_date=handle_nan(row['Dating (with explanation)']),
+            measurement=handle_nan(row['Measurements (height x width + thickness, mm)']),
             folios_number=folios_number,
-            binding=row['Binding'],
-            main_content=row['Main content:'],
+            binding=handle_nan(row['Binding']),
+            main_content=handle_nan(row['Main content:']),
             dating=row.get('Dating (with explanation)', ''),
             other_provenance=row.get('Other provenance details:', ''),
             scripe=row.get('Scribe:', ''),
             no_of_cols=no_of_cols,
-            notes_cur_use=row.get('Notes on current use:', ''),
+            notes_cur_use=handle_nan(row.get('Notes on current use:', '')),
             no_of_lines=no_of_lines,
             decoration=row.get('Decorations', ''),
             colophones=row.get('Colophon(s)', ''),
