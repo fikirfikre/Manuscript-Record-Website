@@ -2,6 +2,10 @@ from django.core.management.base import BaseCommand
 import pandas as pd 
 import datetime
 from main.models import *
+import django
+import os
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'manuscript.settings')
+django.setup()
 
 df = pd.read_excel('main\static\Excel Worksheet_TR_Written Heritage March_a_2023.xlsx')
 for index, row in df.iterrows():

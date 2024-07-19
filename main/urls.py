@@ -37,10 +37,10 @@ urlpatterns = [
     path("profile/",views.profile,name="profile"),
     path("profile/edit/",views.editProfile,name="editprofile"),
     path("view/statistics/",views.statistics,name="statistics"),
-    path("register/id/",views.registerId,name="id"),
-    path("view/ids/",views.idList,name="ids"),
-    path("view/ids/editId/<int:pk>",views.idEdit,name="editId"),
-    path("view/ids/deleteId/<int:pk>",views.idDelete,name="deleteId")
+    # path("register/id/",views.registerId,name="id"),
+    # path("view/ids/",views.idList,name="ids"),
+    # path("view/ids/editId/<int:pk>",views.idEdit,name="editId"),
+    # path("view/ids/deleteId/<int:pk>",views.idDelete,name="deleteId")
 
  
 ]

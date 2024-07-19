@@ -35,7 +35,7 @@
                                 <!-- <span class="input-group-text border-0 px-1" id="basic-addon2"><i class="fas fa-search fa-lg" style="color: #939597;"></i></span> -->
                                 
                                   {% for field in filter.form.visible_fields|slice:"4:5" %}  
-                                  <input type="text" style="z-index:inherit" class="form-control form-control-lg rounded" placeholder="Search manuscript....." {{ field.as_widget }}
+                                  <input type="text" style="z-index:inherit" class="form-control form-control-lg rounded" placeholder="Search manuscript repository....." {{ field.as_widget }}
                                   {%endfor%}
                             </div>
                           </div>
@@ -43,7 +43,7 @@
                             <div class="card-body p-4">
                               <h6 class="mt-3 mb-4" style="color: #939597; font-size: 1.5rem;">Advanced search</h6>
                               <div class="row">
-                                {% for field in filter.form.visible_fields|slice:":4" %}  
+                                {% for field in filter.form.visible_fields|slice:":3" %}  
                                 <div class="col-md-4 mb-3">
                                      
                                   <div class="">
@@ -82,12 +82,12 @@
                 <div class="">
                 <table class="table ">
                     <thead>
-                        <td>index</td>
+                        {% comment %} <td>index</td> {% endcomment %}
                         <td>title</td>
                         <td>Genre</td>
                         <td>language</td>
                         <td>repository</td>
-                        <td>owner</td>
+                        {% comment %} <td>owner</td> {% endcomment %}
                         
                         <td>Location</td>
                         
@@ -97,7 +97,7 @@
                     <tbody>
                         {% for obj in manuscripts %}
                         <tr>
-                            <td>{{obj.index}}</td>
+                            {% comment %} <td>{{obj.start_index|add:forloop.counter0}}</td> {% endcomment %}
                             <td>{{obj.manuscript_name}}</td>
                             <td>{% for genre in obj.genere.all %}
                                 {{genre}}
@@ -106,7 +106,7 @@
                                 {{lan}}
                                 {% endfor %}</td>
                             <td>{{obj.repository}}</td>
-                            <td>{{obj.repositoryOwner}}</td>
+                            {% comment %} <td>{{obj.repositoryOwner}}</td> {% endcomment %}
                             <td>{{obj.repositoryLocation}}</td>
                          
                             {% comment %} <td>{{obj.resp_statement}}</td> {% endcomment %}
@@ -210,7 +210,7 @@
             buttonheight:'5rem'
         });
     });
-    $(document).ready(function() {
+    {% comment %} $(document).ready(function() {
         $('#id_repository').multiselect({
             includeSelectAllOption: true,
             nonSelectedText: 'Select repository',
@@ -220,6 +220,6 @@
             buttonheight:'5rem',
         
         });
-    });
+    }); {% endcomment %}
 </script>
 {% endblock main %}

@@ -41,8 +41,8 @@ class ManscriptForm(forms.ModelForm):
     def __init__(self,*args, **kwargs):
         super(ManscriptForm,self).__init__(*args,**kwargs)
         # self.fields['genere'].empty_label = "select gener"
-        self.fields['repository'].empty_label = "Repository"
-        self.fields['uid'].empty_label = "select code"
+        # self.fields['repository'].empty_label = "Repository"
+        # self.fields['uid'].empty_label = "select code"
         self.fields['repositoryLocation'].empty_label = "select location"
         
 

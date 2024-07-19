@@ -2,6 +2,25 @@
 {% load widget_tweaks %}
 {% block main %}
 <div class="manuscript">
+    <style>
+        .multiselect-container {
+            max-height: 30rem;
+            overflow-y: auto;
+            overflow-x: hidden;
+            font-size: 1.2rem;
+            width: 100%;
+        }
+        .multiselect-selected-text , .btn{
+            font-size: 1.3rem;
+        }
+        .form-label{
+            font-size; 2rem;
+            font-weight: bold;
+
+        }
+      
+
+    </style>
     <div class="main-title">
         <h3> Edit Manuscript</h3>
      </div>
@@ -63,7 +82,7 @@
             buttonheight:'5rem'
         });
     });
-    $(document).ready(function() {
+    {% comment %} $(document).ready(function() {
         $('#id_uid').multiselect({
             includeSelectAllOption: true,
             nonSelectedText: 'Select Genre',
@@ -72,7 +91,7 @@
             buttonWidth: '30rem',
             buttonheight:'5rem'
         });
-    });
+    }); {% endcomment %}
     $(document).ready(function() {
         $('#id_repositoryLocation').multiselect({
             includeSelectAllOption: true,

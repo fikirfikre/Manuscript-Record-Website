@@ -92,7 +92,7 @@ def manuscriptFormPage(request):
         if form.is_valid():
             mansucript = form.save(commit=False)
             mansucript.inventor = inventor
-            mansucript.index = generate_uid(form.cleaned_data["uid"], Manuscript)
+            # mansucript.index = generate_uid(form.cleaned_data["uid"], Manuscript)
             selected_language = form.cleaned_data["language"]
             selected_genre = form.cleaned_data["genere"]
 
@@ -161,7 +161,7 @@ def RepositoryFormPage(request):
         if form.is_valid():
             repo = form.save(commit=False)
             repo.inventor = inventor
-            repo.index = generate_uid(form.cleaned_data["uid"], Repository)
+            # repo.index = generate_uid(form.cleaned_data["uid"], Repository)
             repo.save()
             return redirect("repo")
     return render(request, "main/form-repository.html", context)
@@ -194,7 +194,7 @@ def RepositoryOwnerFormpage(request):
         if form.is_valid():
             owner = form.save(commit=False)
             owner.inventor = inventor
-            owner.index = generate_uid(form.cleaned_data["uid"], RepositoryOwner)
+            # owner.index = generate_uid(form.cleaned_data["uid"], RepositoryOwner)
             owner.save()
             return redirect("owners")
     return render(request, "main/form-owner.html", context)
@@ -252,7 +252,7 @@ def delete(request, pk):
     return render(
         request,
         "main/delete.html",
-        {"name": manuscript.manuscript_name, "return_url": "home"},
+        {"name": manuscript.manuscript_title, "return_url": "home"},
     )
 
 

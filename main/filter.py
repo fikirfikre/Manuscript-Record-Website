@@ -3,15 +3,16 @@ from django import forms
 from django_filters import DateFilter, CharFilter
 from .models import *
 class ManuscriptFilter(django_filters.FilterSet):
-    title = CharFilter(field_name="manuscript_name", lookup_expr = 'icontains')
+    title = CharFilter(field_name="manuscript_name, repository repository_owner", lookup_expr = 'icontains')
+    repository = CharFilter(field_name="repository", lookup_expr = "icontains")
     
     class Meta:
         model = Manuscript
-        fields = ["genere","language","repository","repositoryLocation"]
+        fields = ["genere","language","repositoryLocation"]
     def __init__(self,*args,**kwargs):
         super(ManuscriptFilter,self).__init__(*args,**kwargs)
         # self.filters['genere'].extra.update({'empty_label': "select genre"})
-        self.filters['repository'].extra.update({'empty_label':'Repositories'})
+        # self.filters['repository'].extra.update({'empty_label':'Repositories'})
         # self.fields['uid'].empty_label = "select code"
         self.filters['repositoryLocation'].extra.update({'empty_label':"Locations"})
       

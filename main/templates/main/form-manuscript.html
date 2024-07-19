@@ -96,7 +96,7 @@
             buttonheight:'5rem'
         });
     });
-    $(document).ready(function() {
+    {% comment %} $(document).ready(function() {
         $('#id_uid').multiselect({
             includeSelectAllOption: true,
             nonSelectedText: 'Select Genre',
@@ -105,7 +105,7 @@
             buttonWidth: '15rem',
             buttonheight:'5rem'
         });
-    });
+    }); {% endcomment %}
     $(document).ready(function() {
         $('#id_repositoryLocation').multiselect({
             includeSelectAllOption: true,
@@ -116,7 +116,7 @@
             buttonheight:'5rem'
         });
     });
-    $(document).ready(function() {
+    {% comment %} $(document).ready(function() {
         $('#id_repository').multiselect({
             includeSelectAllOption: true,
             nonSelectedText: 'Select Genre',
@@ -125,7 +125,7 @@
             buttonWidth: '15rem',
             buttonheight:'5rem'
         });
-    });
+    }); {% endcomment %}
 </script>
 
 {% endblock main %}
