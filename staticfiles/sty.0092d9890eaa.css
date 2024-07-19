@@ -181,7 +181,7 @@ color: #CEA676ff;
 }
 
 .main-bg{
-    background-image: url(./bg.png);
+    background-image: url("./bg.5eea71ac99db.png");
     background-size:cover;
     height: 90vh;
     background-position:center;
@@ -308,7 +308,7 @@ color: #CEA676ff;
 }
 
 .form-box-bg{
-    background-image: url(./bg.png);
+    background-image: url("./bg.5eea71ac99db.png");
     background-size:cover;
     width: 40rem;
     text-align: center;
